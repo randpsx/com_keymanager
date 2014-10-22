@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.0" method="upgrade" client="site">
+    <name>MOD_KEYMANAGER_NAME</name>
+    <creationDate>2014-10-21</creationDate>
+    <copyright>Copyright (C) Imperial Valley College 2014. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <author>Omar Ramos</author>
+    <authorEmail>omar.ramos@imperial.edu</authorEmail>
+    <authorUrl>http://www.imperial.edu</authorUrl>
+    <version>1.0.1</version>
+    <description>MOD_KEYMANAGER_DESCRIPTION</description>
+    
+    <files>
+        <filename module="mod_keymanager">mod_keymanager.php</filename>
+        <filename>helper.php</filename>
+        <filename>index.html</filename>
+        <folder>tmpl</folder>
+    </files>
+    <languages>
+        
+			<language tag="en-GB">language/en-GB.mod_keymanager.ini</language>
+			<language tag="en-GB">language/en-GB.mod_keymanager.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset 
+                name="content_type" 
+                label="MOD_KEYMANAGER_CONTENT_TYPE_TAB_LBL"
+                description="MOD_KEYMANAGER_CONTENT_TYPE_TAB_DESC">
+                <field
+                    name="content_type" type="list"
+                    label="MOD_KEYMANAGER_CONTENT_TYPE_LBL"
+                    description="MOD_KEYMANAGER_CONTENT_TYPE_DESC">
+                    <option value="blank">MOD_KEYMANAGER_CUSTOM_CONTENT</option>
+                    <option value="list">MOD_KEYMANAGER_LIST</option>
+                    <option value="item">MOD_KEYMANAGER_ITEM</option>
+                </field>
+            </fieldset>
+            <fieldset 
+                name="blank_content" 
+                label="MOD_KEYMANAGER_CUSTOM_CONTENT_TAB_LBL"
+                description="MOD_KEYMANAGER_CUSTOM_CONTENT_TAB_DESC">
+                <field 
+                    name="html_content" type="editor" filter="safehtml"
+                    label="MOD_KEYMANAGER_HTML_LBL"
+                    description="MOD_KEYMANAGER_HTML_DESC" />
+            </fieldset>
+            <fieldset 
+                name="list_content" 
+                label="MOD_KEYMANAGER_LIST_CONTENT_TAB_LBL"
+                description="MOD_KEYMANAGER_LIST_CONTENT_TAB_DESC">
+                <field
+                    name="table" type="list"
+                    label="MOD_KEYMANAGER_TABLE_LBL"
+                    description="MOD_KEYMANAGER_TABLE_DESC">
+                    
+	<option value="#__keymanager_requests">#__keymanager_requests</option>
+	<option value="#__keymanager_request_keys">#__keymanager_request_keys</option>
+	<option value="#__keymanager_cabinets">#__keymanager_cabinets</option>
+	<option value="#__keymanager_hooks">#__keymanager_hooks</option>
+	<option value="#__keymanager_buildings">#__keymanager_buildings</option>
+	<option value="#__keymanager_rooms">#__keymanager_rooms</option>
+	<option value="#__keymanager_keys">#__keymanager_keys</option>
+	<option value="#__keymanager_key_rooms">#__keymanager_key_rooms</option>
+                </field>
+                <field 
+                    name="field" type="groupedlist" default=""
+                    label="MOD_KEYMANAGER_FIELD_LBL"
+                    description="MOD_KEYMANAGER_FIELD_DESC">
+                    
+	<group label="#__keymanager_requests">
+		<option value="id">id</option>
+		<option value="requester_username">requester_username</option>
+		<option value="department_head_email">department_head_email</option>
+		<option value="department_head_token">department_head_token</option>
+		<option value="department_head_approved_date">department_head_approved_date</option>
+		<option value="vice_president_email">vice_president_email</option>
+		<option value="vice_president_token">vice_president_token</option>
+		<option value="vice_president_approved_date">vice_president_approved_date</option>
+		<option value="access_card">access_card</option>
+		<option value="issued_date">issued_date</option>
+		<option value="created_date">created_date</option>
+		<option value="can_pickup">can_pickup</option>
+		<option value="created_by">created_by</option>
+	</group>
+	<group label="#__keymanager_request_keys">
+		<option value="id">id</option>
+		<option value="request_id">request_id</option>
+		<option value="key_id">key_id</option>
+		<option value="created_by">created_by</option>
+		<option value="pickup_date">pickup_date</option>
+		<option value="returned_date">returned_date</option>
+		<option value="lost_date">lost_date</option>
+	</group>
+	<group label="#__keymanager_cabinets">
+		<option value="id">id</option>
+		<option value="cabinet_name">cabinet_name</option>
+		<option value="cabinet_description">cabinet_description</option>
+		<option value="created_by">created_by</option>
+	</group>
+	<group label="#__keymanager_hooks">
+		<option value="id">id</option>
+		<option value="hook_number">hook_number</option>
+		<option value="cabinet_id">cabinet_id</option>
+		<option value="created_by">created_by</option>
+		<option value="hook_created_date">hook_created_date</option>
+	</group>
+	<group label="#__keymanager_buildings">
+		<option value="id">id</option>
+		<option value="building_name">building_name</option>
+		<option value="building_description">building_description</option>
+		<option value="created_by">created_by</option>
+	</group>
+	<group label="#__keymanager_rooms">
+		<option value="id">id</option>
+		<option value="room_name">room_name</option>
+		<option value="room_description">room_description</option>
+		<option value="building_id">building_id</option>
+		<option value="created_by">created_by</option>
+	</group>
+	<group label="#__keymanager_keys">
+		<option value="id">id</option>
+		<option value="key_name">key_name</option>
+		<option value="key_description">key_description</option>
+		<option value="hook_id">hook_id</option>
+		<option value="created_by">created_by</option>
+		<option value="building_id">building_id</option>
+		<option value="is_master_key">is_master_key</option>
+	</group>
+	<group label="#__keymanager_key_rooms">
+		<option value="id">id</option>
+		<option value="key_id">key_id</option>
+		<option value="room_id">room_id</option>
+		<option value="created_by">created_by</option>
+	</group>
+                </field>
+                <field 
+                    name="offset" type="text" default="0" filter="uint" class="input-small"
+                    label="MOD_KEYMANAGER_OFFSET_LBL"
+                    description="MOD_KEYMANAGER_OFFSET_DESC" />
+                <field 
+                    name="limit" type="text" default="10" filter="uint" class="input-small"
+                    label="MOD_KEYMANAGER_LIMIT_LBL"
+                    description="MOD_KEYMANAGER_LIMIT_DESC" />
+            </fieldset>
+            <fieldset 
+                name="item_content" 
+                label="MOD_KEYMANAGER_ITEM_CONTENT_TAB"
+                description="MOD_KEYMANAGER_ITEM_CONTENT_TAB_DESC">
+                <field
+                    name="item_table" type="list"
+                    label="MOD_KEYMANAGER_TABLE_LBL"
+                    description="MOD_KEYMANAGER_TABLE_DESC">
+                    
+	<option value="#__keymanager_requests">#__keymanager_requests</option>
+	<option value="#__keymanager_request_keys">#__keymanager_request_keys</option>
+	<option value="#__keymanager_cabinets">#__keymanager_cabinets</option>
+	<option value="#__keymanager_hooks">#__keymanager_hooks</option>
+	<option value="#__keymanager_buildings">#__keymanager_buildings</option>
+	<option value="#__keymanager_rooms">#__keymanager_rooms</option>
+	<option value="#__keymanager_keys">#__keymanager_keys</option>
+	<option value="#__keymanager_key_rooms">#__keymanager_key_rooms</option>
+                </field>
+                <field 
+                    name="item_id" type="text" filter="uint" class="input-small"
+                    label="MOD_KEYMANAGER_ITEM_ID_LBL"
+                    description="MOD_KEYMANAGER_ITEM_ID_DESC"
+                />
+            </fieldset>
+        </fields>
+    </config>
+</extension>

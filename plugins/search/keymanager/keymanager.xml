@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="search">
+    <name>plg_search_keymanager</name>
+    <author>Omar Ramos</author>
+    <creationDate>2014-10-21</creationDate>
+    <copyright>Copyright (C) Imperial Valley College 2014. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>omar.ramos@imperial.edu</authorEmail>
+    <authorUrl>http://www.imperial.edu</authorUrl>
+    <version>1.0.1</version>
+    <description>PLG_SEARCH_COM_KEYMANAGER_XML_DESCRIPTION</description>
+    <files>
+        <filename plugin="keymanager">keymanager.php</filename>
+        <filename>index.html</filename>
+    </files>
+    <languages>
+        
+			<language tag="en-GB">language/en-GB.plg_search_keymanager.ini</language>
+			<language tag="en-GB">language/en-GB.plg_search_keymanager.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+
+            <fieldset name="basic">
+                <field name="search_limit" type="text" default="50" size="5"
+                       description="PLG_SEARCH_COM_KEYMANAGER_FIELD_SEARCHLIMIT_DESC"
+                       label="PLG_SEARCH_COM_KEYMANAGER_FIELD_SEARCHLIMIT_LABEL" />
+            </fieldset>
+
+        </fields>
+    </config>
+</extension>

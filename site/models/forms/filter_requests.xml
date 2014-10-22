@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field name="search" type="text" hint="JSEARCH_FILTER"
+               label="COM_USERS_FILTER_SEARCH_DESC"
+               class="js-stools-search-string" />
+
+        
+		<field name="can_pickup" type="list" onchange="this.form.submit();">
+		<option value="">COM_KEYMANAGER_REQUESTS_CAN_PICKUP_FILTER</option>
+		<option value="1">COM_KEYMANAGER_REQUESTS_CAN_PICKUP_OPTION_1</option>
+		<option value="0">COM_KEYMANAGER_REQUESTS_CAN_PICKUP_OPTION_0</option>
+		</field>
+
+    </fields>
+</form>

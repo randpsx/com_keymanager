@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field name="search" type="text" hint="JSEARCH_FILTER"
+               label="COM_USERS_FILTER_SEARCH_DESC"
+               class="js-stools-search-string" />
+
+        <field name="request_id" type="sql" class="inputbox" onchange="this.form.submit();"
+                                    query="SELECT '' AS `id`, '- Please select request_id -' AS `id` UNION SELECT `id`, `id` FROM `#__keymanager_requests`" key_field="id" value_field="id"/> 
+
+ <field name="key_id" type="sql" class="inputbox" onchange="this.form.submit();"
+                                    query="SELECT '' AS `id`, '- Please select key_id -' AS `key_name` UNION SELECT `id`, `key_name` FROM `#__keymanager_keys`" key_field="id" value_field="key_name"/>
+
+    </fields>
+</form>

@@ -1,0 +1,176 @@
+<?php
+
+/**
+ * @version     1.0.1
+ * @package     com_keymanager
+ * @copyright   Copyright (C) Imperial Valley College 2014. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @author      Omar Ramos <omar.ramos@imperial.edu> - http://www.imperial.edu
+ */
+// No direct access
+defined('_JEXEC') or die;
+
+jimport('joomla.application.component.view');
+
+/**
+ * View class for a list of Keymanager.
+ */
+class KeymanagerViewRooms extends JViewLegacy {
+
+    protected $items;
+    protected $pagination;
+    protected $state;
+
+    /**
+     * Display the view
+     */
+    public function display($tpl = null) {
+        $this->state = $this->get('State');
+        $this->items = $this->get('Items');
+        $this->pagination = $this->get('Pagination');
+
+        // Check for errors.
+        if (count($errors = $this->get('Errors'))) {
+            throw new Exception(implode("\n", $errors));
+        }
+
+        KeymanagerHelper::addSubmenu('rooms');
+
+        $this->addToolbar();
+
+        $this->sidebar = JHtmlSidebar::render();
+        parent::display($tpl);
+    }
+
+    /**
+     * Add the page title and toolbar.
+     *
+     * @since	1.6
+     */
+    protected function addToolbar() {
+        require_once JPATH_COMPONENT . '/helpers/keymanager.php';
+
+        $state = $this->get('State');
+        $canDo = KeymanagerHelper::getActions($state->get('filter.category_id'));
+
+        JToolBarHelper::title(JText::_('COM_KEYMANAGER_TITLE_ROOMS'), 'rooms.png');
+
+        //Check if the form exists before showing the add/edit buttons
+        $formPath = JPATH_COMPONENT_ADMINISTRATOR . '/views/room';
+        if (file_exists($formPath)) {
+
+            if ($canDo->get('core.create')) {
+                JToolBarHelper::addNew('room.add', 'JTOOLBAR_NEW');
+            }
+
+            if ($canDo->get('core.edit') && isset($this->items[0])) {
+                JToolBarHelper::editList('room.edit', 'JTOOLBAR_EDIT');
+            }
+        }
+
+        if ($canDo->get('core.edit.state')) {
+
+            if (isset($this->items[0]->state)) {
+                JToolBarHelper::divider();
+                JToolBarHelper::custom('rooms.publish', 'publish.png', 'publish_f2.png', 'JTOOLBAR_PUBLISH', true);
+                JToolBarHelper::custom('rooms.unpublish', 'unpublish.png', 'unpublish_f2.png', 'JTOOLBAR_UNPUBLISH', true);
+            } else if (isset($this->items[0])) {
+                //If this component does not use state then show a direct delete button as we can not trash
+                JToolBarHelper::deleteList('', 'rooms.delete', 'JTOOLBAR_DELETE');
+            }
+
+            if (isset($this->items[0]->state)) {
+                JToolBarHelper::divider();
+                JToolBarHelper::archiveList('rooms.archive', 'JTOOLBAR_ARCHIVE');
+            }
+            if (isset($this->items[0]->checked_out)) {
+                JToolBarHelper::custom('rooms.checkin', 'checkin.png', 'checkin_f2.png', 'JTOOLBAR_CHECKIN', true);
+            }
+        }
+
+        //Show trash and delete for components that uses the state field
+        if (isset($this->items[0]->state)) {
+            if ($state->get('filter.state') == -2 && $canDo->get('core.delete')) {
+                JToolBarHelper::deleteList('', 'rooms.delete', 'JTOOLBAR_EMPTY_TRASH');
+                JToolBarHelper::divider();
+            } else if ($canDo->get('core.edit.state')) {
+                JToolBarHelper::trash('rooms.trash', 'JTOOLBAR_TRASH');
+                JToolBarHelper::divider();
+            }
+        }
+
+        if ($canDo->get('core.admin')) {
+            JToolBarHelper::preferences('com_keymanager');
+        }
+
+        //Set sidebar action - New in 3.0
+        JHtmlSidebar::setAction('index.php?option=com_keymanager&view=rooms');
+
+        $this->extra_sidebar = '';
+                //Filter for the field ".building_id;
+        jimport('joomla.form.form');
+        $options = array();
+        JForm::addFormPath(JPATH_COMPONENT . '/models/forms');
+        $form = JForm::getInstance('com_keymanager.room', 'room');
+
+        $field = $form->getField('building_id');
+
+        $query = $form->getFieldAttribute('filter_building_id','query');
+        $translate = $form->getFieldAttribute('filter_building_id','translate');
+        $key = $form->getFieldAttribute('filter_building_id','key_field');
+        $value = $form->getFieldAttribute('filter_building_id','value_field');
+
+        // Get the database object.
+        $db = JFactory::getDBO();
+
+        // Set the query and get the result list.
+        $db->setQuery($query);
+        $items = $db->loadObjectlist();
+
+        // Build the field options.
+        if (!empty($items))
+        {
+            foreach ($items as $item)
+            {
+                if ($translate == true)
+                {
+                    $options[] = JHtml::_('select.option', $item->$key, JText::_($item->$value));
+                }
+                else
+                {
+                    $options[] = JHtml::_('select.option', $item->$key, $item->$value);
+                }
+            }
+        }
+
+        JHtmlSidebar::addFilter(
+            'Building ID',
+            'filter_building_id',
+            JHtml::_('select.options', $options, "value", "text", $this->state->get('filter.building_id')),
+            true
+        );
+		JHtmlSidebar::addFilter(
+
+			JText::_('JOPTION_SELECT_PUBLISHED'),
+
+			'filter_published',
+
+			JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), "value", "text", $this->state->get('filter.state'), true)
+
+		);
+
+    }
+
+	protected function getSortFields()
+	{
+		return array(
+		'a.id' => JText::_('JGRID_HEADING_ID'),
+		'a.room_name' => JText::_('COM_KEYMANAGER_ROOMS_ROOM_NAME'),
+		'a.room_description' => JText::_('COM_KEYMANAGER_ROOMS_ROOM_DESCRIPTION'),
+		'a.building_id' => JText::_('COM_KEYMANAGER_ROOMS_BUILDING_ID'),
+		'a.ordering' => JText::_('JGRID_HEADING_ORDERING'),
+		'a.state' => JText::_('JSTATUS'),
+		);
+	}
+
+}
