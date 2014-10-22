@@ -53,8 +53,8 @@ class KeymanagerModelBuilding extends JModelAdmin
 
 		// Get the form.
 		$form = $this->loadForm('com_keymanager.building', 'building', array('control' => 'jform', 'load_data' => $loadData));
-        
-        
+
+
 		if (empty($form)) {
 			return false;
 		}
@@ -75,7 +75,7 @@ class KeymanagerModelBuilding extends JModelAdmin
 
 		if (empty($data)) {
 			$data = $this->getItem();
-            
+
 		}
 
 		return $data;

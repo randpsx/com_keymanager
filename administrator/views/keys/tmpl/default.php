@@ -62,7 +62,7 @@ if (!empty($this->extra_sidebar)) {
 <?php else : ?>
 	<div id="j-main-container">
 <?php endif;?>
-    
+
 		<div id="filter-bar" class="btn-toolbar">
 			<div class="filter-search btn-group pull-left">
 				<label for="filter_search" class="element-invisible"><?php echo JText::_('JSEARCH_FILTER');?></label>
@@ -91,7 +91,7 @@ if (!empty($this->extra_sidebar)) {
 					<?php echo JHtml::_('select.options', $sortFields, 'value', 'text', $listOrder);?>
 				</select>
 			</div>
-		</div>        
+		</div>
 		<div class="clearfix"> </div>
 		<table class="table table-striped" id="keyList">
 			<thead>
@@ -109,7 +109,7 @@ if (!empty($this->extra_sidebar)) {
 						<?php echo JHtml::_('grid.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
 					</th>
                 <?php endif; ?>
-                    
+
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_KEYS_KEY_NAME', 'a.key_name', $listDirn, $listOrder); ?>
 				</th>
@@ -118,15 +118,15 @@ if (!empty($this->extra_sidebar)) {
 				</th>
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_KEYS_HOOK_ID', 'a.hook_id', $listDirn, $listOrder); ?>
-				</th>
-				<th class='left'>
-				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_KEYS_BUILDING_ID', 'a.building_id', $listDirn, $listOrder); ?>
-				</th>
+				<!--</th>
+				    <th class='left'>
+				    <?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_KEYS_BUILDING_ID', 'a.building_id', $listDirn, $listOrder); ?>
+				    </th>-->
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_KEYS_IS_MASTER_KEY', 'a.is_master_key', $listDirn, $listOrder); ?>
 				</th>
-                    
-                    
+
+
                 <?php if (isset($this->items[0]->id)): ?>
 					<th width="1%" class="nowrap center hidden-phone">
 						<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
@@ -135,7 +135,7 @@ if (!empty($this->extra_sidebar)) {
 				</tr>
 			</thead>
 			<tfoot>
-                <?php 
+                <?php
                 if(isset($this->items[0])){
                     $colspan = count(get_object_vars($this->items[0]));
                 }
@@ -158,7 +158,7 @@ if (!empty($this->extra_sidebar)) {
                 $canChange	= $user->authorise('core.edit.state',	'com_keymanager');
 				?>
 				<tr class="row<?php echo $i % 2; ?>">
-                    
+
                 <?php if (isset($this->items[0]->ordering)): ?>
 					<td class="order nowrap center hidden-phone">
 					<?php if ($canChange) :
@@ -187,7 +187,7 @@ if (!empty($this->extra_sidebar)) {
 						<?php echo JHtml::_('jgrid.published', $item->state, $i, 'keys.', $canChange, 'cb'); ?>
 					</td>
                 <?php endif; ?>
-                    
+
 				<td>
 				<?php if (isset($item->checked_out) && $item->checked_out) : ?>
 					<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'keys.', $canCheckin); ?>
@@ -207,13 +207,16 @@ if (!empty($this->extra_sidebar)) {
 
 					<?php echo $item->hook_id; ?>
 				</td>
+				<!--<td>
+					<?php echo $item->buildings_building_name_1544399; ?>
+				</td>-->
 				<td>
-
-					<?php echo $item->building_id; ?>
-				</td>
-				<td>
-
-					<?php echo $item->is_master_key; ?>
+                    <?php if($item->is_master_key == 'Yes') : ?>
+					<?php echo $item->is_master_key." &nbsp&nbsp".$item->buildings_building_name_1544399; ?>
+                    <?php endif; ?>
+                    <?php if($item->is_master_key == 'No') : ?>
+                    <?php echo $item->is_master_key; ?>
+                <?php endif; ?>
 				</td>
 
 
@@ -233,6 +236,6 @@ if (!empty($this->extra_sidebar)) {
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 		<?php echo JHtml::_('form.token'); ?>
 	</div>
-</form>        
+</form>
 
-		
+

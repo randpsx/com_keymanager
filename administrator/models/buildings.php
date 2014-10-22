@@ -55,7 +55,7 @@ class KeymanagerModelBuildings extends JModelList {
         $published = $app->getUserStateFromRequest($this->context . '.filter.state', 'filter_published', '', 'string');
         $this->setState('filter.state', $published);
 
-        
+
 
         // Load the parameters.
         $params = JComponentHelper::getParams('com_keymanager');
@@ -103,7 +103,7 @@ class KeymanagerModelBuildings extends JModelList {
         );
         $query->from('`#__keymanager_buildings` AS a');
 
-        
+
 		// Join over the users for the checked out user
 		$query->select("uc.name AS editor");
 		$query->join("LEFT", "#__users AS uc ON uc.id=a.checked_out");
@@ -111,7 +111,7 @@ class KeymanagerModelBuildings extends JModelList {
 		$query->select('created_by.name AS created_by');
 		$query->join('LEFT', '#__users AS created_by ON created_by.id = a.created_by');
 
-        
+
 
 		// Filter by published state
 		$published = $this->getState('filter.state');
@@ -132,7 +132,7 @@ class KeymanagerModelBuildings extends JModelList {
             }
         }
 
-        
+
 
 
         // Add the list ordering clause.
@@ -147,7 +147,7 @@ class KeymanagerModelBuildings extends JModelList {
 
     public function getItems() {
         $items = parent::getItems();
-        
+
         return $items;
     }
 

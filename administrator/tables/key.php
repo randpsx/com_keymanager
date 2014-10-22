@@ -34,7 +34,7 @@ class KeymanagerTablekey extends JTable {
      */
     public function bind($array, $ignore = '') {
 
-        
+
 
 		//Support for multiple or not foreign key field: hook_id
 			if(isset($array['hook_id'])){
@@ -93,6 +93,14 @@ class KeymanagerTablekey extends JTable {
         //Bind the rules for ACL where supported.
         if (isset($array['rules']) && is_array($array['rules'])) {
             $this->setRules($array['rules']);
+        }
+
+        if (isset($array['building_id']) && $array['building_id'] != 0) {
+            $array['is_master_key'] = 1;
+
+        }
+        else {
+            $array['is_master_key'] = 0;
         }
 
         return parent::bind($array, $ignore);
@@ -204,9 +212,9 @@ class KeymanagerTablekey extends JTable {
 
     /**
      * Define a namespaced asset name for inclusion in the #__assets table
-     * @return string The asset name 
+     * @return string The asset name
      *
-     * @see JTable::_getAssetName 
+     * @see JTable::_getAssetName
      */
     protected function _getAssetName() {
         $k = $this->_tbl_key;
@@ -216,7 +224,7 @@ class KeymanagerTablekey extends JTable {
     /**
      * Returns the parent asset's id. If you have a tree structure, retrieve the parent's id using the external key field
      *
-     * @see JTable::_getAssetParentId 
+     * @see JTable::_getAssetParentId
      */
     protected function _getAssetParentId(JTable $table = null, $id = null) {
         // We will retrieve the parent-asset from the Asset-table
@@ -236,8 +244,8 @@ class KeymanagerTablekey extends JTable {
         $this->load($pk);
         $result = parent::delete($pk);
         if ($result) {
-            
-            
+
+
         }
         return $result;
     }

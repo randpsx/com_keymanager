@@ -4,57 +4,61 @@
 
               <field name="id" type="text" default="0" label="COM_KEYMANAGER_FORM_LBL_KEY_ID"
             readonly="true" class="readonly"
-            description="JGLOBAL_FIELD_ID_DESC" /> 
+            description="JGLOBAL_FIELD_ID_DESC" />
 
        <field name="key_name" type="text" size="40" class="inputbox"
-                                                    
+
             label="COM_KEYMANAGER_FORM_LBL_KEY_KEY_NAME"
-            description="COM_KEYMANAGER_FORM_DESC_KEY_KEY_NAME" 
-                                                    
-                                                    
-                                                     required="true" 
-                                                    filter="safehtml" /> 
+            description="COM_KEYMANAGER_FORM_DESC_KEY_KEY_NAME"
+
+
+                                                     required="true"
+                                                    filter="safehtml" />
 
        <field name="key_description" type="text" size="40" class="inputbox"
-                                                    
+
             label="COM_KEYMANAGER_FORM_LBL_KEY_KEY_DESCRIPTION"
-            description="COM_KEYMANAGER_FORM_DESC_KEY_KEY_DESCRIPTION" 
-                                                    
-                                                    
-                                                    
-                                                    filter="safehtml" /> 
+            description="COM_KEYMANAGER_FORM_DESC_KEY_KEY_DESCRIPTION"
 
- <field name="hook_id" type="foreignkey" class="inputbox"
+
+
+                                                    filter="safehtml" />
+
+ <field name="hook_id" type="sql" class="inputbox"
             label="COM_KEYMANAGER_FORM_LBL_KEY_HOOK_ID"
-            description="COM_KEYMANAGER_FORM_DESC_KEY_HOOK_ID" input_type="list" table="#__keymanager_hooks" key_field="id" value_field="hook_number"  required="true"  /> 
+            description="COM_KEYMANAGER_FORM_DESC_KEY_HOOK_ID" input_type="list"
+            query="SELECT 0 AS `id`, '- Cabinet-Hook-' AS `val` UNION SELECT `h`.`id`, CONCAT(c.cabinet_name,' ',h.hook_number) AS val
+                    FROM `sd13g_keymanager_hooks` AS h
+                    INNER JOIN `sd13g_keymanager_cabinets` AS c ON h.cabinet_id = c.id"
+            table="#__keymanager_hooks" key_field="id" value_field="val"  required="true"  />
 
-       <field name="created_by" type="createdby" default="" 
+       <field name="created_by" type="createdby" default=""
             label="COM_KEYMANAGER_FORM_LBL_KEY_CREATED_BY"
-            description="COM_KEYMANAGER_FORM_DESC_KEY_CREATED_BY"  /> 
+            description="COM_KEYMANAGER_FORM_DESC_KEY_CREATED_BY"  />
 
  <field name="building_id" type="foreignkey" class="inputbox"
             label="COM_KEYMANAGER_FORM_LBL_KEY_BUILDING_ID"
-            description="COM_KEYMANAGER_FORM_DESC_KEY_BUILDING_ID" input_type="list" table="#__keymanager_buildings" key_field="id" value_field="building_name"  /> 
+            description="COM_KEYMANAGER_FORM_DESC_KEY_BUILDING_ID" input_type="list" table="#__keymanager_buildings" key_field="id" value_field="building_name"  />
 
        <field name="is_master_key" type="radio"
-                
+
             label="COM_KEYMANAGER_FORM_LBL_KEY_IS_MASTER_KEY"
-            description="COM_KEYMANAGER_FORM_DESC_KEY_IS_MASTER_KEY" 
-                
-                
-                
+            description="COM_KEYMANAGER_FORM_DESC_KEY_IS_MASTER_KEY"
+
+
+
             option_on="Yes"
             option_off="Yes">
                 <option value="1">Yes</option>
                 <option value="0">No</option>
-        </field> 
+        </field>
 
- 
+
 		<field name="filter_is_master_key" type="list" onchange="this.form.submit();">
 			<option value="">COM_KEYMANAGER_KEYS_IS_MASTER_KEY_FILTER</option>
 			<option value="1">Yes</option>
 			<option value="0">No</option>
-		</field> 
+		</field>
 
          <field
         name="state"
@@ -68,7 +72,7 @@
         <option value="0">JUNPUBLISHED</option>
         <option value="2">JARCHIVED</option>
         <option value="-2">JTRASHED</option>
-    </field> 
+    </field>
 
                         <field name="checked_out" type="hidden" filter="unset" />
         <field name="checked_out_time" type="hidden" filter="unset" />

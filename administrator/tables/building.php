@@ -34,7 +34,7 @@ class KeymanagerTablebuilding extends JTable {
      */
     public function bind($array, $ignore = '') {
 
-        
+
 		$input = JFactory::getApplication()->input;
 		$task = $input->getString('task', '');
 		if(($task == 'save' || $task == 'apply') && (!JFactory::getUser()->authorise('core.edit.state','com_keymanager') && $array['state'] == 1)){
@@ -178,9 +178,9 @@ class KeymanagerTablebuilding extends JTable {
 
     /**
      * Define a namespaced asset name for inclusion in the #__assets table
-     * @return string The asset name 
+     * @return string The asset name
      *
-     * @see JTable::_getAssetName 
+     * @see JTable::_getAssetName
      */
     protected function _getAssetName() {
         $k = $this->_tbl_key;
@@ -190,7 +190,7 @@ class KeymanagerTablebuilding extends JTable {
     /**
      * Returns the parent asset's id. If you have a tree structure, retrieve the parent's id using the external key field
      *
-     * @see JTable::_getAssetParentId 
+     * @see JTable::_getAssetParentId
      */
     protected function _getAssetParentId(JTable $table = null, $id = null) {
         // We will retrieve the parent-asset from the Asset-table
@@ -210,8 +210,8 @@ class KeymanagerTablebuilding extends JTable {
         $this->load($pk);
         $result = parent::delete($pk);
         if ($result) {
-            
-            
+
+
         }
         return $result;
     }

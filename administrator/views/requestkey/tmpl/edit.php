@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
-JHtml::_('formbehavior.chosen', 'select');
+JHtml::_('formbehavior.chosen', 'select', null, array('search_contains' => true));
 JHtml::_('behavior.keepalive');
 
 // Import CSS
@@ -22,7 +22,7 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 <script type="text/javascript">
     js = jQuery.noConflict();
     js(document).ready(function() {
-        
+
 	js('input:hidden.request_id').each(function(){
 		var name = js(this).attr('name');
 		if(name.indexOf('request_idhidden')){
@@ -45,9 +45,9 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
             Joomla.submitform(task, document.getElementById('requestkey-form'));
         }
         else {
-            
+
             if (task != 'requestkey.cancel' && document.formvalidator.isValid(document.id('requestkey-form'))) {
-                
+
                 Joomla.submitform(task, document.getElementById('requestkey-form'));
             }
             else {
@@ -74,7 +74,7 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 			</div>
 
 			<?php
-				foreach((array)$this->item->request_id as $value): 
+				foreach((array)$this->item->request_id as $value):
 					if(!is_array($value)):
 						echo '<input type="hidden" class="request_id" name="jform[request_idhidden]['.$value.']" value="'.$value.'" />';
 					endif;
@@ -85,7 +85,7 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 			</div>
 
 			<?php
-				foreach((array)$this->item->key_id as $value): 
+				foreach((array)$this->item->key_id as $value):
 					if(!is_array($value)):
 						echo '<input type="hidden" class="key_id" name="jform[key_idhidden]['.$value.']" value="'.$value.'" />';
 					endif;
@@ -98,7 +98,7 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 				<?php if(empty($this->item->created_by)){ ?>
 					<input type="hidden" name="jform[created_by]" value="<?php echo JFactory::getUser()->id; ?>" />
 
-				<?php } 
+				<?php }
 				else{ ?>
 					<input type="hidden" name="jform[created_by]" value="<?php echo $this->item->created_by; ?>" />
 
@@ -120,8 +120,8 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
             </div>
         </div>
         <?php echo JHtml::_('bootstrap.endTab'); ?>
-        
-        
+
+
 
         <?php echo JHtml::_('bootstrap.endTabSet'); ?>
 

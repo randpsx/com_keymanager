@@ -22,7 +22,7 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 <script type="text/javascript">
     js = jQuery.noConflict();
     js(document).ready(function() {
-        
+
 	js('input:hidden.hook_id').each(function(){
 		var name = js(this).attr('name');
 		if(name.indexOf('hook_idhidden')){
@@ -45,9 +45,9 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
             Joomla.submitform(task, document.getElementById('key-form'));
         }
         else {
-            
+
             if (task != 'key.cancel' && document.formvalidator.isValid(document.id('key-form'))) {
-                
+
                 Joomla.submitform(task, document.getElementById('key-form'));
             }
             else {
@@ -82,7 +82,7 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 			</div>
 
 			<?php
-				foreach((array)$this->item->hook_id as $value): 
+				foreach((array)$this->item->hook_id as $value):
 					if(!is_array($value)):
 						echo '<input type="hidden" class="hook_id" name="jform[hook_idhidden]['.$value.']" value="'.$value.'" />';
 					endif;
@@ -98,7 +98,7 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 				<?php if(empty($this->item->created_by)){ ?>
 					<input type="hidden" name="jform[created_by]" value="<?php echo JFactory::getUser()->id; ?>" />
 
-				<?php } 
+				<?php }
 				else{ ?>
 					<input type="hidden" name="jform[created_by]" value="<?php echo $this->item->created_by; ?>" />
 
@@ -108,7 +108,7 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 			</div>
 
 			<?php
-				foreach((array)$this->item->building_id as $value): 
+				foreach((array)$this->item->building_id as $value):
 					if(!is_array($value)):
 						echo '<input type="hidden" class="building_id" name="jform[building_idhidden]['.$value.']" value="'.$value.'" />';
 					endif;
@@ -123,8 +123,8 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
             </div>
         </div>
         <?php echo JHtml::_('bootstrap.endTab'); ?>
-        
-        
+
+
 
         <?php echo JHtml::_('bootstrap.endTabSet'); ?>
 
