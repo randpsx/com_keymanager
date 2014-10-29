@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
-JHtml::_('formbehavior.chosen', 'select');
+JHtml::_('formbehavior.chosen', 'select', null, array('search_contains' => true));
 JHtml::_('behavior.keepalive');
 
 // Import CSS
@@ -22,7 +22,7 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 <script type="text/javascript">
     js = jQuery.noConflict();
     js(document).ready(function() {
-        
+
     });
 
     Joomla.submitbutton = function(task)
@@ -31,9 +31,9 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
             Joomla.submitform(task, document.getElementById('request-form'));
         }
         else {
-            
+
             if (task != 'request.cancel' && document.formvalidator.isValid(document.id('request-form'))) {
-                
+
                 Joomla.submitform(task, document.getElementById('request-form'));
             }
             else {
@@ -76,6 +76,19 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 				<div class="control-label"><?php echo $this->form->getLabel('vice_president_approved_date'); ?></div>
 				<div class="controls"><?php echo $this->form->getInput('vice_president_approved_date'); ?></div>
 			</div>
+            <div class="control-group">
+                <div class="control-label"><?php echo $this->form->getLabel('keys'); ?></div>
+                <div class="controls"><?php echo $this->form->getInput('keys'); ?></div>
+            </div>
+
+            <?php
+                foreach((array)$this->item->keys as $value):
+                    if(!is_array($value)):
+                        echo '<input type="hidden" class="keys" name="jform[keyshidden]['.$value.']" value="'.$value.'" />';
+                    endif;
+                endforeach;
+            ?>
+
 			<div class="control-group">
 				<div class="control-label"><?php echo $this->form->getLabel('access_card'); ?></div>
 				<div class="controls"><?php echo $this->form->getInput('access_card'); ?></div>
@@ -100,7 +113,7 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 				<?php if(empty($this->item->created_by)){ ?>
 					<input type="hidden" name="jform[created_by]" value="<?php echo JFactory::getUser()->id; ?>" />
 
-				<?php } 
+				<?php }
 				else{ ?>
 					<input type="hidden" name="jform[created_by]" value="<?php echo $this->item->created_by; ?>" />
 
@@ -110,8 +123,8 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
             </div>
         </div>
         <?php echo JHtml::_('bootstrap.endTab'); ?>
-        
-        
+
+
 
         <?php echo JHtml::_('bootstrap.endTabSet'); ?>
 
@@ -120,3 +133,4 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 
     </div>
 </form>
+

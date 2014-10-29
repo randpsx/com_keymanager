@@ -14,6 +14,7 @@ defined('_JEXEC') or die;
  * request Table class
  */
 class KeymanagerTablerequest extends JTable {
+    public $keys = array();
 
     /**
      * Constructor
@@ -34,7 +35,10 @@ class KeymanagerTablerequest extends JTable {
      */
     public function bind($array, $ignore = '') {
 
-        
+        if(!empty($array['keys'])) {
+            $this->keys = $array['keys'];
+        }
+
 		if($array['id'] == 0){
 			$array['created_date'] = JFactory::getDate()->toSql();
 		}
@@ -102,6 +106,37 @@ class KeymanagerTablerequest extends JTable {
         }
 
         return parent::check();
+    }
+
+    public function load($keys = Null, $reset = true) {
+        $result = parent::load($keys, $reset);
+
+        if($result) {
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true)
+                ->select('key_id')
+                ->from($db->quoteName('#__keymanager_request_keys'))
+                ->where($db->quoteName('request_id') . ' = ' . (int) $this->id);
+            $db->setQuery($query);
+            $this->keys = $db->loadColumn();
+        }
+        return $result;
+    }
+
+    public function store($updateNulls = false) {
+        $result = parent::store();
+
+        if($result) {
+            foreach($this->keys as $key_id) {
+                $table = JTable::getInstance('Requestkey','KeymanagerTable');
+                $data = array();
+                $data['request_id'] = $this->id;
+                $data['key_id'] = $key_id;
+                $data['state'] = $this->state;
+                $success = $table->save($data);
+            }
+        }
+        return $result;
     }
 
     /**
@@ -181,9 +216,9 @@ class KeymanagerTablerequest extends JTable {
 
     /**
      * Define a namespaced asset name for inclusion in the #__assets table
-     * @return string The asset name 
+     * @return string The asset name
      *
-     * @see JTable::_getAssetName 
+     * @see JTable::_getAssetName
      */
     protected function _getAssetName() {
         $k = $this->_tbl_key;
@@ -193,7 +228,7 @@ class KeymanagerTablerequest extends JTable {
     /**
      * Returns the parent asset's id. If you have a tree structure, retrieve the parent's id using the external key field
      *
-     * @see JTable::_getAssetParentId 
+     * @see JTable::_getAssetParentId
      */
     protected function _getAssetParentId(JTable $table = null, $id = null) {
         // We will retrieve the parent-asset from the Asset-table
@@ -213,8 +248,8 @@ class KeymanagerTablerequest extends JTable {
         $this->load($pk);
         $result = parent::delete($pk);
         if ($result) {
-            
-            
+
+
         }
         return $result;
     }

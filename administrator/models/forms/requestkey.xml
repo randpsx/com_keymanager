@@ -18,7 +18,7 @@
  <field name="key_id" type="sql" class="inputbox"
             label="COM_KEYMANAGER_FORM_LBL_REQUESTKEY_KEY_ID"
             description="COM_KEYMANAGER_FORM_DESC_REQUESTKEY_KEY_ID" input_type="list"
-            query="SELECT 0 AS `id`, '- Cabinet-Hook-Key -' AS `val` UNION SELECT `k`.`id`, CONCAT(c.cabinet_name,'-',h.hook_number,'-',k.key_name) AS val FROM `sd13g_keymanager_keys` AS k
+            query="SELECT 0 AS `id`, '- Cabinet / Hook / Key -' AS `val` UNION SELECT `k`.`id`, CONCAT(c.cabinet_name,' / ',h.hook_number,' / ',k.key_name) AS val FROM `sd13g_keymanager_keys` AS k
                     INNER JOIN `sd13g_keymanager_hooks` AS h ON k.hook_id = h.id
                     INNER JOIN `sd13g_keymanager_cabinets` AS c ON h.cabinet_id = c.id" key_field="id" value_field="val"  required="true"  />
 
@@ -73,7 +73,7 @@
         <option value="-2">JTRASHED</option>
     </field>
 
-                        <field name="checked_out" type="hidden" filter="unset" />
+    <field name="checked_out" type="hidden" filter="unset" />
         <field name="checked_out_time" type="hidden" filter="unset" />
 
 	</fieldset>

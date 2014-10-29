@@ -62,7 +62,7 @@ if (!empty($this->extra_sidebar)) {
 <?php else : ?>
 	<div id="j-main-container">
 <?php endif;?>
-    
+
 		<div id="filter-bar" class="btn-toolbar">
 			<div class="filter-search btn-group pull-left">
 				<label for="filter_search" class="element-invisible"><?php echo JText::_('JSEARCH_FILTER');?></label>
@@ -91,7 +91,7 @@ if (!empty($this->extra_sidebar)) {
 					<?php echo JHtml::_('select.options', $sortFields, 'value', 'text', $listOrder);?>
 				</select>
 			</div>
-		</div>        
+		</div>
 		<div class="clearfix"> </div>
 		<table class="table table-striped" id="requestkeyList">
 			<thead>
@@ -109,7 +109,7 @@ if (!empty($this->extra_sidebar)) {
 						<?php echo JHtml::_('grid.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
 					</th>
                 <?php endif; ?>
-                    
+
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTKEYS_REQUEST_ID', 'a.request_id', $listDirn, $listOrder); ?>
 				</th>
@@ -125,8 +125,8 @@ if (!empty($this->extra_sidebar)) {
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTKEYS_LOST_DATE', 'a.lost_date', $listDirn, $listOrder); ?>
 				</th>
-                    
-                    
+
+
                 <?php if (isset($this->items[0]->id)): ?>
 					<th width="1%" class="nowrap center hidden-phone">
 						<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
@@ -135,7 +135,7 @@ if (!empty($this->extra_sidebar)) {
 				</tr>
 			</thead>
 			<tfoot>
-                <?php 
+                <?php
                 if(isset($this->items[0])){
                     $colspan = count(get_object_vars($this->items[0]));
                 }
@@ -158,7 +158,7 @@ if (!empty($this->extra_sidebar)) {
                 $canChange	= $user->authorise('core.edit.state',	'com_keymanager');
 				?>
 				<tr class="row<?php echo $i % 2; ?>">
-                    
+
                 <?php if (isset($this->items[0]->ordering)): ?>
 					<td class="order nowrap center hidden-phone">
 					<?php if ($canChange) :
@@ -187,7 +187,7 @@ if (!empty($this->extra_sidebar)) {
 						<?php echo JHtml::_('jgrid.published', $item->state, $i, 'requestkeys.', $canChange, 'cb'); ?>
 					</td>
                 <?php endif; ?>
-                    
+
 				<td>
 
 					<?php echo $item->request_id; ?>
@@ -226,6 +226,6 @@ if (!empty($this->extra_sidebar)) {
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 		<?php echo JHtml::_('form.token'); ?>
 	</div>
-</form>        
+</form>
 
-		
+

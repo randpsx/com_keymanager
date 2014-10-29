@@ -29,6 +29,7 @@ class KeymanagerViewRequest extends JViewLegacy {
         $this->item = $this->get('Item');
         $this->form = $this->get('Form');
 
+
         // Check for errors.
         if (count($errors = $this->get('Errors'))) {
             throw new Exception(implode("\n", $errors));

@@ -26,7 +26,7 @@ class KeymanagerModelReportss extends JModelList {
     public function __construct($config = array()) {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
-                
+
             );
         }
 
@@ -49,7 +49,7 @@ class KeymanagerModelReportss extends JModelList {
         $published = $app->getUserStateFromRequest($this->context . '.filter.state', 'filter_published', '', 'string');
         $this->setState('filter.state', $published);
 
-        
+
 
         // Load the parameters.
         $params = JComponentHelper::getParams('com_keymanager');
@@ -93,7 +93,7 @@ class KeymanagerModelReportss extends JModelList {
 
 	public function getItems() {
         $items = parent::getItems();
-        
+
 		foreach ($items as $oneItem) {
 
 			if (isset($oneItem->key_id)) {

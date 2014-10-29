@@ -4,105 +4,117 @@
 
               <field name="id" type="text" default="0" label="COM_KEYMANAGER_FORM_LBL_REQUEST_ID"
             readonly="true" class="readonly"
-            description="JGLOBAL_FIELD_ID_DESC" /> 
+            description="JGLOBAL_FIELD_ID_DESC" />
 
        <field name="requester_username" type="text" size="40" class="inputbox"
-                                                    
-            label="COM_KEYMANAGER_FORM_LBL_REQUEST_REQUESTER_USERNAME"
-            description="COM_KEYMANAGER_FORM_DESC_REQUEST_REQUESTER_USERNAME" 
-                                                    
-                                                     validate="username" 
-                                                     required="true" 
-                                                    filter="safehtml" /> 
 
- 
-		<field name="department_head_email" type="email" label="Department Head Email" description="" validate="email"  required="true" /> 
+            label="COM_KEYMANAGER_FORM_LBL_REQUEST_REQUESTER_USERNAME"
+            description="COM_KEYMANAGER_FORM_DESC_REQUEST_REQUESTER_USERNAME"
+
+                                                     validate="username"
+                                                     required="true"
+                                                    filter="safehtml" />
+
+
+		<field name="department_head_email" type="email" label="Department Head Email" description="" validate="email"  required="true" />
 
        <field name="department_head_token" type="text" size="40" class="inputbox"
-                                                    
+
             label="COM_KEYMANAGER_FORM_LBL_REQUEST_DEPARTMENT_HEAD_TOKEN"
-            description="COM_KEYMANAGER_FORM_DESC_REQUEST_DEPARTMENT_HEAD_TOKEN" 
-                                                    
-                                                    
-                                                    
-                                                    filter="safehtml" /> 
+            description="COM_KEYMANAGER_FORM_DESC_REQUEST_DEPARTMENT_HEAD_TOKEN"
+
+
+
+                                                    filter="safehtml" />
 
        <field name="department_head_approved_date" type="calendar" class="inputbox"
-        
-        
-         default="0000-00-00 00:00:00" 
-        
-            label="COM_KEYMANAGER_FORM_LBL_REQUEST_DEPARTMENT_HEAD_APPROVED_DATE"
-            description="COM_KEYMANAGER_FORM_DESC_REQUEST_DEPARTMENT_HEAD_APPROVED_DATE" 
-        format="%Y-%m-%d %H:%M:%S"
-        filter="safehtml" /> 
 
- 
-		<field name="vice_president_email" type="email" label="Vice President Email" description="" validate="email"  required="true" /> 
+
+         default="0000-00-00 00:00:00"
+
+            label="COM_KEYMANAGER_FORM_LBL_REQUEST_DEPARTMENT_HEAD_APPROVED_DATE"
+            description="COM_KEYMANAGER_FORM_DESC_REQUEST_DEPARTMENT_HEAD_APPROVED_DATE"
+        format="%Y-%m-%d %H:%M:%S"
+        filter="safehtml" />
+
+
+		<field name="vice_president_email" type="email" label="Vice President Email" description="" validate="email"  required="true" />
 
        <field name="vice_president_token" type="text" size="40" class="inputbox"
-                                                    
+
             label="COM_KEYMANAGER_FORM_LBL_REQUEST_VICE_PRESIDENT_TOKEN"
-            description="COM_KEYMANAGER_FORM_DESC_REQUEST_VICE_PRESIDENT_TOKEN" 
-                                                    
-                                                    
-                                                    
-                                                    filter="safehtml" /> 
+            description="COM_KEYMANAGER_FORM_DESC_REQUEST_VICE_PRESIDENT_TOKEN"
+
+
+
+                                                    filter="safehtml" />
 
        <field name="vice_president_approved_date" type="calendar" class="inputbox"
-        
-        
-         default="0000-00-00 00:00:00" 
-        
+
+
+         default="0000-00-00 00:00:00"
+
             label="COM_KEYMANAGER_FORM_LBL_REQUEST_VICE_PRESIDENT_APPROVED_DATE"
-            description="COM_KEYMANAGER_FORM_DESC_REQUEST_VICE_PRESIDENT_APPROVED_DATE" 
+            description="COM_KEYMANAGER_FORM_DESC_REQUEST_VICE_PRESIDENT_APPROVED_DATE"
         format="%Y-%m-%d %H:%M:%S"
-        filter="safehtml" /> 
+        filter="safehtml" />
+
+        <field name="keys" type="sql" class="inputbox"
+            label="COM_KEYMANAGER_FORM_LBL_REQUESTKEY_KEY_ID"
+            description="COM_KEYMANAGER_FORM_DESC_REQUESTKEY_KEY_ID" input_type="list" multiple="multiple"
+            query="SELECT 0 AS `id`, '- Cabinet / Hook / Key -' AS `val` UNION SELECT `k`.`id`, CONCAT(c.cabinet_name,' / ',h.hook_number,' / ',k.key_name) AS val FROM `#__keymanager_keys` AS k
+                    INNER JOIN `sd13g_keymanager_hooks` AS h ON k.hook_id = h.id
+                    INNER JOIN `sd13g_keymanager_cabinets` AS c ON h.cabinet_id = c.id" key_field="id" value_field="val"  required="true"  />
+
+       <field name="filter_key_id" type="sql" class="inputbox"
+            onchange="this.form.submit();"
+            query="SELECT 0 AS `id`, '- Cabinet-Hook-Key -' AS `val` UNION SELECT `id`, `key_name` AS val FROM `#__keymanager_keys`" key_field="id" value_field="val"
+             />
 
        <field name="access_card" type="text" size="40" class="inputbox"
-                                                    
+
             label="COM_KEYMANAGER_FORM_LBL_REQUEST_ACCESS_CARD"
-            description="COM_KEYMANAGER_FORM_DESC_REQUEST_ACCESS_CARD" 
-                                                    
-                                                    
-                                                    
-                                                    filter="safehtml" /> 
+            description="COM_KEYMANAGER_FORM_DESC_REQUEST_ACCESS_CARD"
+
+
+
+                                                    filter="safehtml" />
 
        <field name="issued_date" type="calendar"
-                
-            label="COM_KEYMANAGER_FORM_LBL_REQUEST_ISSUED_DATE"
-            description="COM_KEYMANAGER_FORM_DESC_REQUEST_ISSUED_DATE" 
-                
-                
-                 /> 
 
-       <field name="created_date" type="timecreated" default="" 
+            label="COM_KEYMANAGER_FORM_LBL_REQUEST_ISSUED_DATE"
+            description="COM_KEYMANAGER_FORM_DESC_REQUEST_ISSUED_DATE"
+
+
+                 />
+
+       <field name="created_date" type="timecreated" default=""
             label="COM_KEYMANAGER_FORM_LBL_REQUEST_CREATED_DATE"
-            description="COM_KEYMANAGER_FORM_DESC_REQUEST_CREATED_DATE"  /> 
+            description="COM_KEYMANAGER_FORM_DESC_REQUEST_CREATED_DATE"  />
 
        <field name="can_pickup" type="radio"
-                
+
             label="COM_KEYMANAGER_FORM_LBL_REQUEST_CAN_PICKUP"
-            description="COM_KEYMANAGER_FORM_DESC_REQUEST_CAN_PICKUP" 
-                 default="0" 
-                
-                
+            description="COM_KEYMANAGER_FORM_DESC_REQUEST_CAN_PICKUP"
+                 default="0"
+
+
             option_on="Yes"
             option_off="Yes">
                 <option value="1">Yes</option>
                 <option value="0">No</option>
-        </field> 
+        </field>
 
- 
+
 		<field name="filter_can_pickup" type="list" onchange="this.form.submit();">
 			<option value="">COM_KEYMANAGER_REQUESTS_CAN_PICKUP_FILTER</option>
 			<option value="1">Yes</option>
 			<option value="0">No</option>
-		</field> 
+		</field>
 
-       <field name="created_by" type="createdby" default="" 
+       <field name="created_by" type="createdby" default=""
             label="COM_KEYMANAGER_FORM_LBL_REQUEST_CREATED_BY"
-            description="COM_KEYMANAGER_FORM_DESC_REQUEST_CREATED_BY"  /> 
+            description="COM_KEYMANAGER_FORM_DESC_REQUEST_CREATED_BY"  />
 
          <field
         name="state"
@@ -116,7 +128,7 @@
         <option value="0">JUNPUBLISHED</option>
         <option value="2">JARCHIVED</option>
         <option value="-2">JTRASHED</option>
-    </field> 
+    </field>
 
                         <field name="checked_out" type="hidden" filter="unset" />
         <field name="checked_out_time" type="hidden" filter="unset" />
