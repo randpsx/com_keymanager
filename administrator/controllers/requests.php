@@ -26,8 +26,8 @@ class KeymanagerControllerRequests extends JControllerAdmin
 		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
 		return $model;
 	}
-    
-    
+
+
 	/**
 	 * Method to save the submitted ordering values for records via AJAX.
 	 *
@@ -60,7 +60,27 @@ class KeymanagerControllerRequests extends JControllerAdmin
 		// Close the application
 		JFactory::getApplication()->close();
 	}
-    
-    
-    
+
+     public function startrequest()
+        {
+
+                // Get the input
+                $input = JFactory::getApplication()->input;
+                $pks = $input->post->get('cid', array(), 'array');
+
+                // Sanitize the input
+                JArrayHelper::toInteger($pks);
+
+                // Get the model
+                $model = $this->getModel();
+
+                $return = $model->startrequest($pks);
+
+                // Redirect to the list screen.
+                $this->setRedirect(JRoute::_('index.php?option=com_keymanager&view=requests', false));
+
+        }
+
+
+
 }

@@ -62,7 +62,7 @@ if (!empty($this->extra_sidebar)) {
 <?php else : ?>
 	<div id="j-main-container">
 <?php endif;?>
-    
+
 		<div id="filter-bar" class="btn-toolbar">
 			<div class="filter-search btn-group pull-left">
 				<label for="filter_search" class="element-invisible"><?php echo JText::_('JSEARCH_FILTER');?></label>
@@ -91,7 +91,7 @@ if (!empty($this->extra_sidebar)) {
 					<?php echo JHtml::_('select.options', $sortFields, 'value', 'text', $listOrder);?>
 				</select>
 			</div>
-		</div>        
+		</div>
 		<div class="clearfix"> </div>
 		<table class="table table-striped" id="requestList">
 			<thead>
@@ -109,7 +109,13 @@ if (!empty($this->extra_sidebar)) {
 						<?php echo JHtml::_('grid.sort', 'JSTATUS', 'a.state', $listDirn, $listOrder); ?>
 					</th>
                 <?php endif; ?>
-                    
+
+                <?php if (isset($this->items[0]->start_request)): ?>
+                    <th width="1%" class="nowrap center">
+                        <?php echo JHtml::_('grid.sort', 'COM_KEYMANAGER_FORM_COLUMN_HEADER_REQUEST_START_REQUEST', 'a.start_request', $listDirn, $listOrder); ?>
+                    </th>
+                <?php endif; ?>
+
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTS_REQUESTER_USERNAME', 'a.requester_username', $listDirn, $listOrder); ?>
 				</th>
@@ -143,8 +149,8 @@ if (!empty($this->extra_sidebar)) {
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTS_CAN_PICKUP', 'a.can_pickup', $listDirn, $listOrder); ?>
 				</th>
-                    
-                    
+
+
                 <?php if (isset($this->items[0]->id)): ?>
 					<th width="1%" class="nowrap center hidden-phone">
 						<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
@@ -153,7 +159,7 @@ if (!empty($this->extra_sidebar)) {
 				</tr>
 			</thead>
 			<tfoot>
-                <?php 
+                <?php
                 if(isset($this->items[0])){
                     $colspan = count(get_object_vars($this->items[0]));
                 }
@@ -176,7 +182,7 @@ if (!empty($this->extra_sidebar)) {
                 $canChange	= $user->authorise('core.edit.state',	'com_keymanager');
 				?>
 				<tr class="row<?php echo $i % 2; ?>">
-                    
+
                 <?php if (isset($this->items[0]->ordering)): ?>
 					<td class="order nowrap center hidden-phone">
 					<?php if ($canChange) :
@@ -205,11 +211,18 @@ if (!empty($this->extra_sidebar)) {
 						<?php echo JHtml::_('jgrid.published', $item->state, $i, 'requests.', $canChange, 'cb'); ?>
 					</td>
                 <?php endif; ?>
-                    
+                <td>
+                <?php if ($item->start_request == 1): ?>
+                    <?php echo 'Yes'; ?>
+                <?php else: ?>
+                    No
+                <?php endif; ?>
+                 </td>
 				<td>
 				<?php if (isset($item->checked_out) && $item->checked_out) : ?>
 					<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'requests.', $canCheckin); ?>
 				<?php endif; ?>
+
 				<?php if ($canEdit) : ?>
 					<a href="<?php echo JRoute::_('index.php?option=com_keymanager&task=request.edit&id='.(int) $item->id); ?>">
 					<?php echo $this->escape($item->requester_username); ?></a>
@@ -259,6 +272,8 @@ if (!empty($this->extra_sidebar)) {
 				</td>
 
 
+
+
                 <?php if (isset($this->items[0]->id)): ?>
 					<td class="center hidden-phone">
 						<?php echo (int) $item->id; ?>
@@ -275,6 +290,6 @@ if (!empty($this->extra_sidebar)) {
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 		<?php echo JHtml::_('form.token'); ?>
 	</div>
-</form>        
+</form>
 
-		
+

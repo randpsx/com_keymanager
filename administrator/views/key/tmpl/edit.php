@@ -86,8 +86,13 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 					if(!is_array($value)):
 						echo '<input type="hidden" class="hook_id" name="jform[hook_idhidden]['.$value.']" value="'.$value.'" />';
 					endif;
-				endforeach;
-			?>				<input type="hidden" name="jform[ordering]" value="<?php echo $this->item->ordering; ?>" />
+				endforeach; ?>
+
+            <div class="control-group">
+                <div class="control-label"><?php echo $this->form->getLabel('room_id'); ?></div>
+                <div class="controls"><?php echo $this->form->getInput('room_id'); ?></div>
+            </div>
+                <input type="hidden" name="jform[ordering]" value="<?php echo $this->item->ordering; ?>" />
 			<div class="control-group">
 				<div class="control-label"><?php echo $this->form->getLabel('state'); ?></div>
 				<div class="controls"><?php echo $this->form->getInput('state'); ?></div>

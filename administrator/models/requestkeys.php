@@ -58,7 +58,7 @@ class KeymanagerModelRequestkeys extends JModelList {
         $published = $app->getUserStateFromRequest($this->context . '.filter.state', 'filter_published', '', 'string');
         $this->setState('filter.state', $published);
 
-        
+
 		//Filtering request_id
 		$this->setState('filter.request_id', $app->getUserStateFromRequest($this->context.'.filter.request_id', 'filter_request_id', '', 'string'));
 
@@ -124,7 +124,7 @@ class KeymanagerModelRequestkeys extends JModelList {
         );
         $query->from('`#__keymanager_request_keys` AS a');
 
-        
+
 		// Join over the users for the checked out user
 		$query->select("uc.name AS editor");
 		$query->join("LEFT", "#__users AS uc ON uc.id=a.checked_out");
@@ -138,7 +138,7 @@ class KeymanagerModelRequestkeys extends JModelList {
 		$query->select('created_by.name AS created_by');
 		$query->join('LEFT', '#__users AS created_by ON created_by.id = a.created_by');
 
-        
+
 
 		// Filter by published state
 		$published = $this->getState('filter.state');
@@ -159,7 +159,7 @@ class KeymanagerModelRequestkeys extends JModelList {
             }
         }
 
-        
+
 
 		//Filtering request_id
 		$filter_request_id = $this->state->get("filter.request_id");
@@ -216,7 +216,7 @@ class KeymanagerModelRequestkeys extends JModelList {
 
     public function getItems() {
         $items = parent::getItems();
-        
+
 		foreach ($items as $oneItem) {
 
 			if (isset($oneItem->request_id)) {

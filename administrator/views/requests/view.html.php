@@ -103,11 +103,13 @@ class KeymanagerViewRequests extends JViewLegacy {
             JToolBarHelper::preferences('com_keymanager');
         }
 
+        JToolbarHelper::custom('requests.startrequest', 'generic.png','', 'Start Request', true);
+
         //Set sidebar action - New in 3.0
         JHtmlSidebar::setAction('index.php?option=com_keymanager&view=requests');
 
         $this->extra_sidebar = '';
-        
+
 			//Filter for the field issued_date
 			$this->extra_sidebar .= '<small><label for="filter_from_issued_date">From Issued Date</label></small>';
 			$this->extra_sidebar .= JHtml::_('calendar', $this->state->get('filter.issued_date.from'), 'filter_from_issued_date', 'filter_from_issued_date', '%Y-%m-%d', array('style' => 'width:142px;', 'onchange' => 'this.form.submit();'));
@@ -159,6 +161,7 @@ class KeymanagerViewRequests extends JViewLegacy {
 		'a.can_pickup' => JText::_('COM_KEYMANAGER_REQUESTS_CAN_PICKUP'),
 		'a.ordering' => JText::_('JGRID_HEADING_ORDERING'),
 		'a.state' => JText::_('JSTATUS'),
+        'a.start_request' => JText::_('COM_KEYMANAGER_FORM_LBL_REQUEST_START_REQUEST')
 		);
 	}
 

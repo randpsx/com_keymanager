@@ -41,6 +41,7 @@ class KeymanagerModelRequests extends JModelList {
                 'ordering', 'a.ordering',
                 'state', 'a.state',
                 'created_by', 'a.created_by',
+                'start_request', 'a.start_request'
 
             );
         }
@@ -64,7 +65,7 @@ class KeymanagerModelRequests extends JModelList {
         $published = $app->getUserStateFromRequest($this->context . '.filter.state', 'filter_published', '', 'string');
         $this->setState('filter.state', $published);
 
-        
+
 		//Filtering issued_date
 		$this->setState('filter.issued_date.from', $app->getUserStateFromRequest($this->context.'.filter.issued_date.from', 'filter_from_issued_date', '', 'string'));
 		$this->setState('filter.issued_date.to', $app->getUserStateFromRequest($this->context.'.filter.issued_date.to', 'filter_to_issued_date', '', 'string'));
@@ -119,7 +120,7 @@ class KeymanagerModelRequests extends JModelList {
         );
         $query->from('`#__keymanager_requests` AS a');
 
-        
+
 		// Join over the users for the checked out user
 		$query->select("uc.name AS editor");
 		$query->join("LEFT", "#__users AS uc ON uc.id=a.checked_out");
@@ -127,7 +128,7 @@ class KeymanagerModelRequests extends JModelList {
 		$query->select('created_by.name AS created_by');
 		$query->join('LEFT', '#__users AS created_by ON created_by.id = a.created_by');
 
-        
+
 
 		// Filter by published state
 		$published = $this->getState('filter.state');
@@ -148,7 +149,7 @@ class KeymanagerModelRequests extends JModelList {
             }
         }
 
-        
+
 
 		//Filtering issued_date
 		$filter_issued_date_from = $this->state->get("filter.issued_date.from");
@@ -179,7 +180,7 @@ class KeymanagerModelRequests extends JModelList {
 
     public function getItems() {
         $items = parent::getItems();
-        
+
         return $items;
     }
 

@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS `#__keymanager_requests` (
 `checked_out` INT(11)  NOT NULL ,
 `checked_out_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
 `created_by` INT(11)  NOT NULL ,
+`start_request` TINYINT(1) NOT NULL,
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT COLLATE=utf8_general_ci;
 

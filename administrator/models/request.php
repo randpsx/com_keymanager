@@ -53,8 +53,8 @@ class KeymanagerModelRequest extends JModelAdmin
 
 		// Get the form.
 		$form = $this->loadForm('com_keymanager.request', 'request', array('control' => 'jform', 'load_data' => $loadData));
-        
-        
+
+
 		if (empty($form)) {
 			return false;
 		}
@@ -75,7 +75,7 @@ class KeymanagerModelRequest extends JModelAdmin
 
 		if (empty($data)) {
 			$data = $this->getItem();
-            
+
 		}
 
 		return $data;
@@ -121,5 +121,25 @@ class KeymanagerModelRequest extends JModelAdmin
 
 		}
 	}
+
+    public function startrequest($pks)
+        {
+        $db = JFactory::getDbo();
+
+        foreach($pks as $request_id) {
+        $query = $db->getQuery(true)
+                ->update('#__keymanager_requests')
+                ->set('start_request = ' . (int) 1);
+
+                $query->where('id = ' . (int) $request_id);
+
+
+                $db->setQuery($query);
+                $db->execute();
+        }
+
+        return true;
+
+        }
 
 }

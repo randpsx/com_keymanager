@@ -24,7 +24,7 @@
 
                                                     filter="safehtml" />
 
- <field name="building_id" type="sql" class="inputbox"
+ <field name="building_id" type="foreignkey" class="inputbox"
             label="COM_KEYMANAGER_FORM_LBL_ROOM_BUILDING_ID"
             description="COM_KEYMANAGER_FORM_DESC_ROOM_BUILDING_ID" input_type="list" table="#__keymanager_buildings" key_field="id" value_field="building_name"  required="true"  />
 

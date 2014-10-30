@@ -101,6 +101,10 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 				<div class="control-label"><?php echo $this->form->getLabel('created_date'); ?></div>
 				<div class="controls"><?php echo $this->form->getInput('created_date'); ?></div>
 			</div>
+            <div class="control-group">
+                <div class="control-label"><?php echo $this->form->getLabel('start_request'); ?></div>
+                <div class="controls"><?php echo $this->form->getInput('start_request'); ?></div>
+            </div>
 			<div class="control-group">
 				<div class="control-label"><?php echo $this->form->getLabel('can_pickup'); ?></div>
 				<div class="controls"><?php echo $this->form->getInput('can_pickup'); ?></div>
