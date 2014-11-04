@@ -93,9 +93,13 @@ class KeymanagerModelRequest extends JModelAdmin
 	{
 		if ($item = parent::getItem($pk)) {
 
-		$registry = new JRegistry;
+            if ($item->keys instanceof JObject) {
+                $item->keys = $item->keys->getProperties();
+            }
+
+		/*$registry = new JRegistry;
         $registry->loadString($item->keys);
-        $item->keys = $registry->toArray();
+        $item->keys = $registry->toArray();*/
 
 		}
 
