@@ -61,7 +61,7 @@
 
         <field name="keys" type="sql" class="inputbox"
             label="COM_KEYMANAGER_FORM_LBL_REQUESTKEY_KEY_ID"
-            description="COM_KEYMANAGER_FORM_DESC_REQUESTKEY_KEY_ID" input_type="list" multiple="multiple"
+            description="COM_KEYMANAGER_FORM_DESC_REQUESTKEY_KEY_ID" input_type="list" multiple="true"
             query="SELECT 0 AS `id`, '- Cabinet / Hook / Key -' AS `val` UNION SELECT `k`.`id`, CONCAT(c.cabinet_name,' / ',h.hook_number,' / ',k.key_name) AS val FROM `#__keymanager_keys` AS k
             INNER JOIN `sd13g_keymanager_hooks` AS h ON k.hook_id = h.id
             INNER JOIN `sd13g_keymanager_cabinets` AS c ON h.cabinet_id = c.id" key_field="id" value_field="val"  required="true"  />
@@ -96,20 +96,20 @@
 
             label="COM_KEYMANAGER_FORM_LBL_REQUEST_START_REQUEST"
             description="COM_KEYMANAGER_FORM_DESC_REQUEST_START_REQUEST"
-            default="No"
+            default="0"
 
 
             option_on="Yes"
             option_off="Yes">
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
         </field>
 
 
         <field name="filter_start_request" type="list" onchange="this.form.submit();">
             <option value="">COM_KEYMANAGER_REQUESTS_CAN_PICKUP_FILTER</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
         </field>
 
         <field name="created_by" type="createdby" default=""

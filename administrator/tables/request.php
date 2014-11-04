@@ -108,7 +108,7 @@ class KeymanagerTablerequest extends JTable {
         return parent::check();
     }
 
-    public function load($keys = Null, $reset = true) {
+  public function load($keys = Null, $reset = true) {
         $result = parent::load($keys, $reset);
 
         if($result) {
