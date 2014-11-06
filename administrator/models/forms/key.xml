@@ -38,12 +38,24 @@
 
         <field name="room_id" type="foreignkey" class="inputbox"
             label="COM_KEYMANAGER_FORM_LBL_ROOM_ROOM_NAME"
-            description="COM_KEYMANAGER_FORM_DESC_ROOM_ROOM_NAME" input_type="list" table="#__keymanager_rooms" key_field="id" value_field="room_name"  required="true"  />
+            description="COM_KEYMANAGER_FORM_DESC_ROOM_ROOM_NAME" input_type="list" multiple="true"
+            table="#__keymanager_rooms" key_field="id" value_field="room_name"  required="true"  />
 
         <field name="filter_room_id" type="sql" class="inputbox"
             onchange="this.form.submit();"
             query="SELECT 0 AS `id`, '- Please select room_id -' AS `val` UNION SELECT `id`, `room_name` AS val FROM `#__keymanager_rooms`" key_field="id" value_field="val"
             />
+
+
+
+        <field name="access_card" type="text" size="40" class="inputbox"
+
+            label="COM_KEYMANAGER_FORM_LBL_REQUEST_ACCESS_CARD"
+            description="COM_KEYMANAGER_FORM_DESC_REQUEST_ACCESS_CARD"
+
+
+
+            filter="safehtml" />
 
         <field name="created_by" type="createdby" default=""
             label="COM_KEYMANAGER_FORM_LBL_ROOM_CREATED_BY"

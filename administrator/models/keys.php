@@ -58,7 +58,7 @@ class KeymanagerModelKeys extends JModelList {
         $published = $app->getUserStateFromRequest($this->context . '.filter.state', 'filter_published', '', 'string');
         $this->setState('filter.state', $published);
 
-        
+
 		//Filtering is_master_key
 		$this->setState('filter.is_master_key', $app->getUserStateFromRequest($this->context.'.filter.is_master_key', 'filter_is_master_key', '', 'string'));
 
@@ -109,13 +109,16 @@ class KeymanagerModelKeys extends JModelList {
         );
         $query->from('`#__keymanager_keys` AS a');
 
-        
+
 		// Join over the users for the checked out user
 		$query->select("uc.name AS editor");
 		$query->join("LEFT", "#__users AS uc ON uc.id=a.checked_out");
 		// Join over the foreign key 'hook_id'
 		$query->select('#__keymanager_hooks_1540173.hook_number AS hooks_hook_number_1540173');
 		$query->join('LEFT', '#__keymanager_hooks AS #__keymanager_hooks_1540173 ON #__keymanager_hooks_1540173.id = a.hook_id');
+        // Join over the foreign key 'room_id'
+        /*$query->select('#__keymanager_rooms.room_name as room_name');
+        $query->join('LEFT', '#__keymanager_rooms as r ON r.id = a.room_id');*/
 		// Join over the user field 'created_by'
 		$query->select('created_by.name AS created_by');
 		$query->join('LEFT', '#__users AS created_by ON created_by.id = a.created_by');
@@ -123,7 +126,7 @@ class KeymanagerModelKeys extends JModelList {
 		$query->select('#__keymanager_buildings_1544399.building_name AS buildings_building_name_1544399');
 		$query->join('LEFT', '#__keymanager_buildings AS #__keymanager_buildings_1544399 ON #__keymanager_buildings_1544399.id = a.building_id');
 
-        
+
 
 		// Filter by published state
 		$published = $this->getState('filter.state');
@@ -144,7 +147,7 @@ class KeymanagerModelKeys extends JModelList {
             }
         }
 
-        
+
 
 		//Filtering is_master_key
 		$filter_is_master_key = $this->state->get("filter.is_master_key");
@@ -165,7 +168,7 @@ class KeymanagerModelKeys extends JModelList {
 
     public function getItems() {
         $items = parent::getItems();
-        
+
 		foreach ($items as $oneItem) {
 
 			if (isset($oneItem->hook_id)) {

@@ -119,21 +119,24 @@ if (!empty($this->extra_sidebar)) {
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTS_REQUESTER_USERNAME', 'a.requester_username', $listDirn, $listOrder); ?>
 				</th>
+                <th class='left'>
+                <?php echo JHtml::_('grid.sort', 'COM_KEYMANAGER_REQUESTS_KEY_NAME', 'a.key_name', $listDirn, $listOrder); ?>
+                </th>
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTS_DEPARTMENT_HEAD_EMAIL', 'a.department_head_email', $listDirn, $listOrder); ?>
 				</th>
-				<th class='left'>
+				<!--<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTS_DEPARTMENT_HEAD_TOKEN', 'a.department_head_token', $listDirn, $listOrder); ?>
-				</th>
+				</th>-->
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTS_DEPARTMENT_HEAD_APPROVED_DATE', 'a.department_head_approved_date', $listDirn, $listOrder); ?>
 				</th>
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTS_VICE_PRESIDENT_EMAIL', 'a.vice_president_email', $listDirn, $listOrder); ?>
 				</th>
-				<th class='left'>
+<!--				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTS_VICE_PRESIDENT_TOKEN', 'a.vice_president_token', $listDirn, $listOrder); ?>
-				</th>
+				</th>-->
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTS_VICE_PRESIDENT_APPROVED_DATE', 'a.vice_president_approved_date', $listDirn, $listOrder); ?>
 				</th>
@@ -152,9 +155,9 @@ if (!empty($this->extra_sidebar)) {
 
 
                 <?php if (isset($this->items[0]->id)): ?>
-					<th width="1%" class="nowrap center hidden-phone">
-						<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
-					</th>
+                    <th width="1%" class="nowrap center hidden-phone">
+                        <?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
+                    </th>
                 <?php endif; ?>
 				</tr>
 			</thead>
@@ -229,27 +232,35 @@ if (!empty($this->extra_sidebar)) {
 				<?php else : ?>
 					<?php echo $this->escape($item->requester_username); ?>
 				<?php endif; ?>
-				</td>
-				<td>
+                </td>
 
-					<?php echo $item->department_head_email; ?>
-				</td>
-				<td>
+                <td>
+                    <?php echo $item->key_name; ?>
+                </td>
 
-					<?php echo $item->department_head_token; ?>
-				</td>
+				<td class="has-context">
+                    <div class="pull-left">
+
+					    <?php echo $item->department_head_email; ?>
+
+                        <span class="small">
+					        <?php echo '</br>tkn: '.$item->department_head_token; ?>
+				        </span>
+                    </div>
+                </td>
+
 				<td>
 
 					<?php echo $item->department_head_approved_date; ?>
 				</td>
-				<td>
+				<td class="has-context">
+                    <div class="pull-left">
+					    <?php echo $item->vice_president_email; ?>
 
-					<?php echo $item->vice_president_email; ?>
-				</td>
-				<td>
-
-					<?php echo $item->vice_president_token; ?>
-				</td>
+                        <span class="small">
+					        <?php echo '</br>tkn: '.$item->vice_president_token; ?>
+                        </span>
+                    </div>
 				<td>
 
 					<?php echo $item->vice_president_approved_date; ?>
@@ -275,9 +286,9 @@ if (!empty($this->extra_sidebar)) {
 
 
                 <?php if (isset($this->items[0]->id)): ?>
-					<td class="center hidden-phone">
-						<?php echo (int) $item->id; ?>
-					</td>
+                    <td class="center hidden-phone">
+                        <?php echo (int) $item->id; ?>
+                    </td>
                 <?php endif; ?>
 				</tr>
 				<?php endforeach; ?>

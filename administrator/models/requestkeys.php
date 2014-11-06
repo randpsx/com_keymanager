@@ -28,6 +28,7 @@ class KeymanagerModelRequestkeys extends JModelList {
             $config['filter_fields'] = array(
                                 'id', 'a.id',
                 'request_id', 'a.request_id',
+                'request_username', 'a.request_username',
                 'key_id', 'a.key_id',
                 'ordering', 'a.ordering',
                 'state', 'a.state',
@@ -114,7 +115,7 @@ class KeymanagerModelRequestkeys extends JModelList {
     protected function getListQuery() {
         // Create a new query object.
         $db = $this->getDbo();
-        $query = $db->getQuery(true);
+        $query  = $db->getQuery(true);
 
         // Select the required fields from the table.
         $query->select(
@@ -137,6 +138,14 @@ class KeymanagerModelRequestkeys extends JModelList {
 		// Join over the user field 'created_by'
 		$query->select('created_by.name AS created_by');
 		$query->join('LEFT', '#__users AS created_by ON created_by.id = a.created_by');
+        // Join over the foreign key 'requester_name'
+        $query->select('#__keymanager_requests_1540223.requester_username as request_username');
+        $query->join('LEFT', '#__keymanager_requests AS kr ON kr.id = a.request_id');
+
+        /*$query->select('requester_username')
+              ->from('#__keymanager_requests');
+                        $db->setQuery($query);
+                        $column= $db->loadColumn();*/
 
 
 
@@ -211,6 +220,8 @@ class KeymanagerModelRequestkeys extends JModelList {
             $query->order($db->escape($orderCol . ' ' . $orderDirn));
         }
 
+
+
         return $query;
     }
 
@@ -262,8 +273,29 @@ class KeymanagerModelRequestkeys extends JModelList {
 			$oneItem->key_id = !empty($textValue) ? implode(', ', $textValue) : $oneItem->key_id;
 
 			}
+
+            if (isset($oneItem->request_username)) {
+                $values = explode(',', $oneItem->request_username);
+
+                $textValue = array();
+                foreach ($values as $value){
+                    $db = JFactory::getDbo();
+                    $query = $db->getQuery(true);
+                    $query
+                            ->select('requester_username')
+                            ->from('`#__keymanager_requests`')
+                            ->where('id = ' . $db->quote($db->escape($value)));
+                    $db->setQuery($query);
+                    $results = $db->loadObject();
+                    if ($results) {
+                        $textValue[] = $results->requester_username;
+                    }
+                }
+
+            $oneItem->request_username = !empty($textValue) ? implode(', ', $textValue) : $oneItem->request_username;
 		}
         return $items;
+        }
     }
 
 }

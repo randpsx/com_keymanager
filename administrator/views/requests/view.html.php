@@ -66,6 +66,7 @@ class KeymanagerViewRequests extends JViewLegacy {
             if ($canDo->get('core.edit') && isset($this->items[0])) {
                 JToolBarHelper::editList('request.edit', 'JTOOLBAR_EDIT');
             }
+
         }
 
         if ($canDo->get('core.edit.state')) {
@@ -103,7 +104,11 @@ class KeymanagerViewRequests extends JViewLegacy {
             JToolBarHelper::preferences('com_keymanager');
         }
 
-        JToolbarHelper::custom('requests.startrequest', 'generic.png','', 'Start Request', true);
+
+        if ($canDo->get('core.admin') && isset($this->items[0])) {
+            JToolbarHelper::custom('requests.startrequest', 'generic.png','', 'Start Request', true);
+        }
+
 
         //Set sidebar action - New in 3.0
         JHtmlSidebar::setAction('index.php?option=com_keymanager&view=requests');
@@ -149,6 +154,7 @@ class KeymanagerViewRequests extends JViewLegacy {
 		return array(
 		'a.id' => JText::_('JGRID_HEADING_ID'),
 		'a.requester_username' => JText::_('COM_KEYMANAGER_REQUESTS_REQUESTER_USERNAME'),
+        'a.keys' => JText::_('COM_KEYMANAGER_REQUESTS_KEY_NAME'),
 		'a.department_head_email' => JText::_('COM_KEYMANAGER_REQUESTS_DEPARTMENT_HEAD_EMAIL'),
 		'a.department_head_token' => JText::_('COM_KEYMANAGER_REQUESTS_DEPARTMENT_HEAD_TOKEN'),
 		'a.department_head_approved_date' => JText::_('COM_KEYMANAGER_REQUESTS_DEPARTMENT_HEAD_APPROVED_DATE'),

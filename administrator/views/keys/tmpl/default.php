@@ -116,6 +116,9 @@ if (!empty($this->extra_sidebar)) {
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_KEYS_KEY_DESCRIPTION', 'a.key_description', $listDirn, $listOrder); ?>
 				</th>
+                <th class='left'>
+                <?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_ROOMS_ROOM_NAME', 'a.room_name', $listDirn, $listOrder); ?>
+                </th>
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_KEYS_HOOK_ID', 'a.hook_id', $listDirn, $listOrder); ?>
 				<!--</th>
@@ -203,6 +206,10 @@ if (!empty($this->extra_sidebar)) {
 
 					<?php echo $item->key_description; ?>
 				</td>
+                <td>
+
+                    <?php echo $item->room_id; ?>
+                </td>
 				<td>
 
 					<?php echo $item->hook_id; ?>

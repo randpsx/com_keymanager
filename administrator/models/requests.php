@@ -28,6 +28,7 @@ class KeymanagerModelRequests extends JModelList {
             $config['filter_fields'] = array(
                                 'id', 'a.id',
                 'requester_username', 'a.requester_username',
+                'key_id', 'a.key_id',
                 'department_head_email', 'a.department_head_email',
                 'department_head_token', 'a.department_head_token',
                 'department_head_approved_date', 'a.department_head_approved_date',
@@ -130,6 +131,7 @@ class KeymanagerModelRequests extends JModelList {
 
 
 
+
 		// Filter by published state
 		$published = $this->getState('filter.state');
 		if (is_numeric($published)) {
@@ -168,14 +170,22 @@ class KeymanagerModelRequests extends JModelList {
 		}
 
 
+
         // Add the list ordering clause.
         $orderCol = $this->state->get('list.ordering');
         $orderDirn = $this->state->get('list.direction');
         if ($orderCol && $orderDirn) {
             $query->order($db->escape($orderCol . ' ' . $orderDirn));
         }
+        // Code to Join and Retrieve the Multiple Keys Associated with a Request:
+        $query->select("GROUP_CONCAT(DISTINCT k.key_name ORDER BY k.key_name ASC SEPARATOR ', ') AS key_name");
+        $query->join('LEFT', '#__keymanager_request_keys AS rk ON a.id = rk.request_id');
+        $query->join('LEFT', '#__keymanager_keys AS k ON rk.key_id = k.id');
+        $query->group('a.id');
 
         return $query;
+
+
     }
 
     public function getItems() {

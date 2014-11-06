@@ -114,8 +114,11 @@ if (!empty($this->extra_sidebar)) {
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTKEYS_REQUEST_ID', 'a.request_id', $listDirn, $listOrder); ?>
 				</th>
 				<th class='left'>
-				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTKEYS_KEY_ID', 'a.key_id', $listDirn, $listOrder); ?>
-				</th>
+                <?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTS_REQUESTER_USERNAME', 'a.requester_username', $listDirn, $listOrder); ?>
+                </th>
+                <th class='left'>
+                <?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTKEYS_KEY_ID', 'a.key_id', $listDirn, $listOrder); ?>
+                </th>
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTKEYS_PICKUP_DATE', 'a.pickup_date', $listDirn, $listOrder); ?>
 				</th>
@@ -192,6 +195,14 @@ if (!empty($this->extra_sidebar)) {
 
 					<?php echo $item->request_id; ?>
 				</td>
+                <td>
+                <?php if ($canEdit) : ?>
+                    <a href="<?php echo JRoute::_('index.php?option=com_keymanager&task=requestkey.edit&id='.(int) $item->id); ?>">
+                    <?php echo $this->escape($item->request_username); ?></a>
+                <?php else : ?>
+                    <?php echo $this->escape($item->request_username); ?>
+                <?php endif; ?>
+                </td>
 				<td>
 
 					<?php echo $item->key_id; ?>
@@ -210,10 +221,10 @@ if (!empty($this->extra_sidebar)) {
 				</td>
 
 
-                <?php if (isset($this->items[0]->id)): ?>
-					<td class="center hidden-phone">
-						<?php echo (int) $item->id; ?>
-					</td>
+                 <?php if (isset($this->items[0]->id)): ?>
+                    <td class="center hidden-phone">
+                        <?php echo (int) $item->id; ?>
+                    </td>
                 <?php endif; ?>
 				</tr>
 				<?php endforeach; ?>
