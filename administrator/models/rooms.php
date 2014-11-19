@@ -56,7 +56,7 @@ class KeymanagerModelRooms extends JModelList {
         $published = $app->getUserStateFromRequest($this->context . '.filter.state', 'filter_published', '', 'string');
         $this->setState('filter.state', $published);
 
-        
+
 		//Filtering building_id
 		$this->setState('filter.building_id', $app->getUserStateFromRequest($this->context.'.filter.building_id', 'filter_building_id', '', 'string'));
 
@@ -107,7 +107,7 @@ class KeymanagerModelRooms extends JModelList {
         );
         $query->from('`#__keymanager_rooms` AS a');
 
-        
+
 		// Join over the users for the checked out user
 		$query->select("uc.name AS editor");
 		$query->join("LEFT", "#__users AS uc ON uc.id=a.checked_out");
@@ -117,8 +117,13 @@ class KeymanagerModelRooms extends JModelList {
 		// Join over the user field 'created_by'
 		$query->select('created_by.name AS created_by');
 		$query->join('LEFT', '#__users AS created_by ON created_by.id = a.created_by');
+        // Join over the foreign key 'key_name'
+        $query->select("GROUP_CONCAT(DISTINCT k.key_name ORDER BY k.key_name ASC SEPARATOR ', ') AS key_name");
+        $query->join('LEFT', '#__keymanager_key_rooms AS kr ON a.id = kr.room_id');
+        $query->join('LEFT', '#__keymanager_keys AS k ON kr.key_id = k.id');
+        $query->group('a.id');
 
-        
+
 
 		// Filter by published state
 		$published = $this->getState('filter.state');
@@ -139,7 +144,7 @@ class KeymanagerModelRooms extends JModelList {
             }
         }
 
-        
+
 
 		//Filtering building_id
 		$filter_building_id = $this->state->get("filter.building_id");
@@ -160,7 +165,7 @@ class KeymanagerModelRooms extends JModelList {
 
     public function getItems() {
         $items = parent::getItems();
-        
+
 		foreach ($items as $oneItem) {
 
 			if (isset($oneItem->building_id)) {

@@ -36,7 +36,7 @@
             label="COM_KEYMANAGER_FORM_LBL_KEY_CREATED_BY"
             description="COM_KEYMANAGER_FORM_DESC_KEY_CREATED_BY"  />
 
-        <field name="room_id" type="foreignkey" class="inputbox"
+        <field name="rooms" type="foreignkey" class="inputbox"
             label="COM_KEYMANAGER_FORM_LBL_ROOM_ROOM_NAME"
             description="COM_KEYMANAGER_FORM_DESC_ROOM_ROOM_NAME" input_type="list" multiple="true"
             table="#__keymanager_rooms" key_field="id" value_field="room_name"  required="true"  />

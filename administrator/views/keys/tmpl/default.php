@@ -208,7 +208,7 @@ if (!empty($this->extra_sidebar)) {
 				</td>
                 <td>
 
-                    <?php echo $item->room_id; ?>
+                    <?php echo $item->room_name; ?>
                 </td>
 				<td>
 

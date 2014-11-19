@@ -76,8 +76,18 @@ class KeymanagerControllerRequests extends JControllerAdmin
 
                 $return = $model->startrequest($pks);
 
+                $mail = $model->departmentheadKeyRequestEmail($pks);
+
+                if($mail == true) {
+                    $msg = 'Email sent successfully!';
+                }
+                else if($mail == false) {
+                    $msg = 'Failure to send email!';
+                    $this->setError($msg);
+
+                }
                 // Redirect to the list screen.
-                $this->setRedirect(JRoute::_('index.php?option=com_keymanager&view=requests', false));
+                $this->setRedirect(JRoute::_('index.php?option=com_keymanager&view=requests',false), $msg);
 
         }
 

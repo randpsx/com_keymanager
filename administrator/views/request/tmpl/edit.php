@@ -62,6 +62,10 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 				<div class="control-label"><?php echo $this->form->getLabel('department_head_email'); ?></div>
 				<div class="controls"><?php echo $this->form->getInput('department_head_email'); ?></div>
 			</div>
+            <div class="control-group">
+                <div class="control-label"><?php echo $this->form->getLabel('department_head_name'); ?></div>
+                <div class="controls"><?php echo $this->form->getInput('department_head_name'); ?></div>
+            </div>
 				<input type="hidden" name="jform[department_head_token]" value="<?php echo $this->item->department_head_token; ?>" />
 			<div class="control-group">
 				<div class="control-label"><?php echo $this->form->getLabel('department_head_approved_date'); ?></div>
@@ -71,6 +75,10 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 				<div class="control-label"><?php echo $this->form->getLabel('vice_president_email'); ?></div>
 				<div class="controls"><?php echo $this->form->getInput('vice_president_email'); ?></div>
 			</div>
+            <div class="control-group">
+                <div class="control-label"><?php echo $this->form->getLabel('vice_president_name'); ?></div>
+                <div class="controls"><?php echo $this->form->getInput('vice_president_name'); ?></div>
+            </div>
 				<input type="hidden" name="jform[vice_president_token]" value="<?php echo $this->item->vice_president_token; ?>" />
 			<div class="control-group">
 				<div class="control-label"><?php echo $this->form->getLabel('vice_president_approved_date'); ?></div>

@@ -53,8 +53,8 @@ class KeymanagerModelRoom extends JModelAdmin
 
 		// Get the form.
 		$form = $this->loadForm('com_keymanager.room', 'room', array('control' => 'jform', 'load_data' => $loadData));
-        
-        
+
+
 		if (empty($form)) {
 			return false;
 		}
@@ -75,7 +75,7 @@ class KeymanagerModelRoom extends JModelAdmin
 
 		if (empty($data)) {
 			$data = $this->getItem();
-            
+
 		}
 
 		return $data;
@@ -94,6 +94,9 @@ class KeymanagerModelRoom extends JModelAdmin
 		if ($item = parent::getItem($pk)) {
 
 			//Do any procesing on fields here if needed
+            if ($item->keys instanceof JObject) {
+                $item->keys = $item->keys->getProperties();
+            }
 
 		}
 

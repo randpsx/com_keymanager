@@ -142,10 +142,82 @@ class KeymanagerModelRequest extends JModelAdmin
 
                 $db->setQuery($query);
                 $db->execute();
+
         }
 
         return true;
 
         }
 
+    public function departmentheadKeyRequestEmail($pks)
+    {
+
+        foreach($pks as $request_id) {
+            $params = JComponentHelper::getParams('com_keymanager');
+            $table_request = JTable::getInstance('Request','KeymanagerTable');
+            $table_request->load($request_id);
+            $table_request_keys = JTable::getInstance('Requestkey', 'KeymanagerTable');
+            $table_request_keys->load($request_id);
+            $table_key_rooms = JTable::getInstance('Keyroom', 'KeymanagerTable');
+            $table_key_rooms->load($request_id);
+
+            $date = JFactory::getDate('now', 'America/Los_Angeles')->toSql(true);
+
+            $app = JFactory::getApplication();
+            $from = $params->get('admin_email');
+            $fromName = $params->get('from_name');
+
+
+            $recipients = array();
+            $recipients[0] = $table_request->department_head_email;
+            $recipients[1] = $params->get(admin_email);
+            $recipients[2] = $params->get(admin_email_2);
+
+            $subject = 'Key Request ( Sent on ' . $date. ')';
+
+            $body = '';
+
+            $body .= '<html><head></head><body style="font-family: Calibri,Tahoma,Arial;">';
+
+            $body .= '<p>';
+            $body .= 'Hi ' . $table_request->department_head_name . ',';
+        $body .= '</p>';
+        $body .= '<p>';
+            $body .= 'This email is to notify you that <span style="font-weight: bold">' . $table_request->requester_username . '</span> is requesting one or more keys.';
+        $body .= '</p>';
+
+            $body .= '<p>';
+                $body .= 'The key being requested is: ' . $keys . ' for Room number or Location: ' . $table_key_rooms->room_id . '.';
+            $body .='</p>';
+
+            $body .='<p>';
+                $body .= 'To approve and/or disapprove keys click <a href="www.google.com">here</a> .';
+            $body .='</p>';
+
+
+
+                $body .= '</tbody>';
+            $body .= '</table>';
+
+            $body .= '<br />';
+
+            $body .= '<p style="font-weight: bold">';
+            $body .= 'This email was sent via Imperial Valley College\'s Key Management System';
+            $body .= '</p>';
+        $body .= '</body></html>';
+
+        $isHTML = true;
+
+        $mail = JFactory::getMailer();
+        if ($app->get('useSMTP', false))
+        {
+            $mail->useSMTP(true, $app->get('smtpHost'), $app->get('smtpUsername'), $app->get('smtpPassword'), $app->get('smtpSecure'), $app->get('smtpPort', 25));
+        }
+        return $mail->sendMail($from, $fromName, $recipients, $subject, $body, $isHTML, null, null, null, $from, $fromName);
+        }
+
+
+    }
+
 }
+

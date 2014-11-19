@@ -17,6 +17,8 @@
 
 
         <field name="department_head_email" type="email" label="Department Head Email" description="" validate="email"  required="true" />
+        <field name="department_head_name" type="text" label="Department Head Name" description="" required="true" />
+
 
         <field name="department_head_token" type="text" size="40" class="inputbox"
 
@@ -39,6 +41,7 @@
 
 
         <field name="vice_president_email" type="email" label="Vice President Email" description="" validate="email"  required="true" />
+        <field name="vice_president_name" type="text" label="Vice President Name" description="" required="true" />
 
         <field name="vice_president_token" type="text" size="40" class="inputbox"
 

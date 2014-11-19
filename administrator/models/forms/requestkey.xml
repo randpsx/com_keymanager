@@ -43,6 +43,28 @@
             option_on="Yes"
             option_off="Yes" />
 
+       <field name="dh_approved"
+           type="list"
+           label="DH Approved"
+           description=""
+           class="inputbox"
+           size="1">
+           <option value="0">Not reviewed</option>
+           <option value="1">Reviewed and Approved</option>
+           <option value="-1">Reviewed and Disapproved</option>
+       </field>
+
+       <field name="vp_approved"
+           type="list"
+           label="VP Approved"
+           description="COM_KEYMANAGER_FORM_DESC_REQUESTKEY_VP_APPROVED"
+           class="inputbox"
+           size="1">
+           <option value="0">Not reviewed</option>
+           <option value="1">Reviewed and Approved</option>
+           <option value="-1">Reviewed and Disapproved</option>
+       </field>
+
        <field name="returned_date" type="calendar"
 
             label="COM_KEYMANAGER_FORM_LBL_REQUESTKEY_RETURNED_DATE"

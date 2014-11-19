@@ -22,7 +22,7 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 <script type="text/javascript">
     js = jQuery.noConflict();
     js(document).ready(function() {
-        
+
 	js('input:hidden.building_id').each(function(){
 		var name = js(this).attr('name');
 		if(name.indexOf('building_idhidden')){
@@ -38,9 +38,9 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
             Joomla.submitform(task, document.getElementById('room-form'));
         }
         else {
-            
+
             if (task != 'room.cancel' && document.formvalidator.isValid(document.id('room-form'))) {
-                
+
                 Joomla.submitform(task, document.getElementById('room-form'));
             }
             else {
@@ -69,13 +69,17 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 				<div class="control-label"><?php echo $this->form->getLabel('room_description'); ?></div>
 				<div class="controls"><?php echo $this->form->getInput('room_description'); ?></div>
 			</div>
+            <div class="control-group">
+                <div class="control-label"><?php echo $this->form->getLabel('keys'); ?></div>
+                <div class="controls"><?php echo $this->form->getInput('keys'); ?></div>
+            </div>
 			<div class="control-group">
 				<div class="control-label"><?php echo $this->form->getLabel('building_id'); ?></div>
 				<div class="controls"><?php echo $this->form->getInput('building_id'); ?></div>
 			</div>
 
 			<?php
-				foreach((array)$this->item->building_id as $value): 
+				foreach((array)$this->item->building_id as $value):
 					if(!is_array($value)):
 						echo '<input type="hidden" class="building_id" name="jform[building_idhidden]['.$value.']" value="'.$value.'" />';
 					endif;
@@ -91,7 +95,7 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 				<?php if(empty($this->item->created_by)){ ?>
 					<input type="hidden" name="jform[created_by]" value="<?php echo JFactory::getUser()->id; ?>" />
 
-				<?php } 
+				<?php }
 				else{ ?>
 					<input type="hidden" name="jform[created_by]" value="<?php echo $this->item->created_by; ?>" />
 
@@ -101,8 +105,8 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
             </div>
         </div>
         <?php echo JHtml::_('bootstrap.endTab'); ?>
-        
-        
+
+
 
         <?php echo JHtml::_('bootstrap.endTabSet'); ?>
 

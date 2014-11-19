@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
  * key Table class
  */
 class KeymanagerTablekey extends JTable {
-
+    public $rooms = array();
     /**
      * Constructor
      *
@@ -33,7 +33,9 @@ class KeymanagerTablekey extends JTable {
      * @since	1.5
      */
     public function bind($array, $ignore = '') {
-
+        if(!empty($array['rooms'])) {
+            $this->rooms = $array['rooms'];
+        }
 
 
 		//Support for multiple or not foreign key field: hook_id
@@ -141,48 +143,48 @@ class KeymanagerTablekey extends JTable {
         if($result) {
             $db = JFactory::getDbo();
             $query = $db->getQuery(true)
-                ->select('key_id')
-                ->from($db->quoteName('#__keymanager_request_keys'))
-                ->where($db->quoteName('request_id') . ' = ' . (int) $this->id);
+                ->select('room_id')
+                ->from($db->quoteName('#__keymanager_key_rooms'))
+                ->where($db->quoteName('key_id') . ' = ' . (int) $this->id);
             $db->setQuery($query);
-            $this->keys = $db->loadColumn();
+            $this->rooms = $db->loadColumn();
         }
         return $result;
     }
 
     public function store($updateNulls = false) {
         $result = parent::store();
-        $initial_keys = array();
-        $keys_diff_add = array();
-        $keys_diff_delete = array();
+        $initial_rooms = array();
+        $rooms_diff_add = array();
+        $rooms_diff_delete = array();
 
         if($result) {
             $db = JFactory::getDbo();
             $query = $db->getQuery(true)
-                ->select('key_id')
-                ->from($db->quoteName('#__keymanager_request_keys'))
-                ->where($db->quoteName('request_id') . ' = ' . (int) $this->id);
+                ->select('room_id')
+                ->from($db->quoteName('#__keymanager_key_rooms'))
+                ->where($db->quoteName('key_id') . ' = ' . (int) $this->id);
             $db->setQuery($query);
 
-            $initial_keys = $db->loadColumn();
-            $keys_diff_delete = array_diff($initial_keys, $this->keys);
-            $keys_diff_add = array_diff($this->keys, $initial_keys);
+            $initial_rooms = $db->loadColumn();
+            $rooms_diff_delete = array_diff($initial_rooms, $this->rooms);
+            $rooms_diff_add = array_diff($this->rooms, $initial_rooms);
 
-            $this->keys;
-            foreach($keys_diff_add as $key_id) {
-                $table = JTable::getInstance('Requestkey','KeymanagerTable');
+            $this->rooms;
+            foreach($rooms_diff_add as $room_id) {
+                $table = JTable::getInstance('Keyroom','KeymanagerTable');
                 $data = array();
-                $data['request_id'] = $this->id;
-                $data['key_id'] = $key_id;
+                $data['key_id'] = $this->id;
+                $data['room_id'] = $room_id;
                 $data['state'] = $this->state;
                 $success = $table->save($data);
             }
 
-            foreach($keys_diff_delete as $key_id) {
+            foreach($rooms_diff_delete as $room_id) {
                 $query = $db->getQuery(true)
-                    ->delete($db->quoteName('#__keymanager_request_keys'))
-                    ->where($db->quoteName('request_id'). ' = ' . (int) $this->id)
-                    ->where($db->quoteName('key_id') . ' = ' . (int) $key_id);
+                    ->delete($db->quoteName('#__keymanager_key_rooms'))
+                    ->where($db->quoteName('key_id'). ' = ' . (int) $this->id)
+                    ->where($db->quoteName('room_id') . ' = ' . (int) $room_id);
                 $db->setQuery($query);
                 $result = $db->execute();
             }

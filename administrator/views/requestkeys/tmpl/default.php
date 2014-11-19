@@ -128,6 +128,12 @@ if (!empty($this->extra_sidebar)) {
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_KEYMANAGER_REQUESTKEYS_LOST_DATE', 'a.lost_date', $listDirn, $listOrder); ?>
 				</th>
+                <th class='left'>
+                <?php echo JHtml::_('grid.sort',  'DH Approved', 'a.dh_approved', $listDirn, $listOrder); ?>
+                </th>
+                <th class='left'>
+                <?php echo JHtml::_('grid.sort',  'VP Approved', 'a.vp_approved', $listDirn, $listOrder); ?>
+                </th>
 
 
                 <?php if (isset($this->items[0]->id)): ?>
@@ -219,6 +225,14 @@ if (!empty($this->extra_sidebar)) {
 
 					<?php echo $item->lost_date; ?>
 				</td>
+                <td>
+
+                    <?php echo $item->dh_approved; ?>
+                </td>
+                <td>
+
+                    <?php echo $item->vp_approved; ?>
+                </td>
 
 
                  <?php if (isset($this->items[0]->id)): ?>

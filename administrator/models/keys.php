@@ -117,8 +117,10 @@ class KeymanagerModelKeys extends JModelList {
 		$query->select('#__keymanager_hooks_1540173.hook_number AS hooks_hook_number_1540173');
 		$query->join('LEFT', '#__keymanager_hooks AS #__keymanager_hooks_1540173 ON #__keymanager_hooks_1540173.id = a.hook_id');
         // Join over the foreign key 'room_id'
-        /*$query->select('#__keymanager_rooms.room_name as room_name');
-        $query->join('LEFT', '#__keymanager_rooms as r ON r.id = a.room_id');*/
+        $query->select("GROUP_CONCAT(DISTINCT r.room_name ORDER BY r.room_name ASC SEPARATOR ', ') AS room_name");
+        $query->join('LEFT', '#__keymanager_key_rooms AS kr ON a.id = kr.key_id');
+        $query->join('LEFT', '#__keymanager_rooms AS r ON kr.room_id = r.id');
+        $query->group('a.id');
 		// Join over the user field 'created_by'
 		$query->select('created_by.name AS created_by');
 		$query->join('LEFT', '#__users AS created_by ON created_by.id = a.created_by');

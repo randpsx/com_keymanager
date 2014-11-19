@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
  * room Table class
  */
 class KeymanagerTableroom extends JTable {
-
+    public $keys = array();
     /**
      * Constructor
      *
@@ -34,7 +34,9 @@ class KeymanagerTableroom extends JTable {
      */
     public function bind($array, $ignore = '') {
 
-        
+    if(!empty($array['keys'])) {
+            $this->rooms = $array['keys'];
+        }
 
 		//Support for multiple or not foreign key field: building_id
 			if(isset($array['building_id'])){
@@ -114,6 +116,61 @@ class KeymanagerTableroom extends JTable {
         return parent::check();
     }
 
+    public function load($keys = Null, $reset = true) {
+        $result = parent::load($keys, $reset);
+
+        if($result) {
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true)
+                ->select('key_id')
+                ->from($db->quoteName('#__keymanager_key_rooms'))
+                ->where($db->quoteName('room_id') . ' = ' . (int) $this->id);
+            $db->setQuery($query);
+            $this->keys = $db->loadColumn();
+        }
+        return $result;
+    }
+
+    public function store($updateNulls = false) {
+        $result = parent::store();
+        $initial_keys = array();
+        $keys_diff_add = array();
+        $keys_diff_delete = array();
+
+        if($result) {
+            $db = JFactory::getDbo();
+            $query = $db->getQuery(true)
+                ->select('key_id')
+                ->from($db->quoteName('#__keymanager_key_rooms'))
+                ->where($db->quoteName('room_id') . ' = ' . (int) $this->id);
+            $db->setQuery($query);
+
+            $initial_keys = $db->loadColumn();
+            $keys_diff_delete = array_diff($initial_keys, $this->keys);
+            $keys_diff_add = array_diff($this->keys, $initial_keys);
+
+            $this->keys;
+            foreach($keys_diff_add as $key_id) {
+                $table = JTable::getInstance('Keyroom','KeymanagerTable');
+                $data = array();
+                $data['room_id'] = $this->id;
+                $data['key_id'] = $key_id;
+                $data['state'] = $this->state;
+                $success = $table->save($data);
+            }
+
+            foreach($keys_diff_delete as $key_id) {
+                $query = $db->getQuery(true)
+                    ->delete($db->quoteName('#__keymanager_key_rooms'))
+                    ->where($db->quoteName('room_id'). ' = ' . (int) $this->id)
+                    ->where($db->quoteName('key_id') . ' = ' . (int) $key_id);
+                $db->setQuery($query);
+                $result = $db->execute();
+            }
+        }
+        return $result;
+    }
+
     /**
      * Method to set the publishing state for a row or list of rows in the database
      * table.  The method respects checked out rows by other users and will attempt
@@ -191,9 +248,9 @@ class KeymanagerTableroom extends JTable {
 
     /**
      * Define a namespaced asset name for inclusion in the #__assets table
-     * @return string The asset name 
+     * @return string The asset name
      *
-     * @see JTable::_getAssetName 
+     * @see JTable::_getAssetName
      */
     protected function _getAssetName() {
         $k = $this->_tbl_key;
@@ -203,7 +260,7 @@ class KeymanagerTableroom extends JTable {
     /**
      * Returns the parent asset's id. If you have a tree structure, retrieve the parent's id using the external key field
      *
-     * @see JTable::_getAssetParentId 
+     * @see JTable::_getAssetParentId
      */
     protected function _getAssetParentId(JTable $table = null, $id = null) {
         // We will retrieve the parent-asset from the Asset-table
@@ -223,8 +280,8 @@ class KeymanagerTableroom extends JTable {
         $this->load($pk);
         $result = parent::delete($pk);
         if ($result) {
-            
-            
+
+
         }
         return $result;
     }

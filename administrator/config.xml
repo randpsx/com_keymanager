@@ -1,22 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
     <fieldset label="COM_KEYMANAGER" name="keymanager">
-              <field name="staff_email_domain" type="text"
-                
-            label="COM_KEYMANAGER_FORM_LBL_STAFF_EMAIL_DOMAIN"
-            description="COM_KEYMANAGER_FORM_DESC_STAFF_EMAIL_DOMAIN" 
-                
-                
-                
-            menu_published="0"
-            filter="raw" />
+              <field name="staff_email_domain" type="hidden"
+
+                    label="COM_KEYMANAGER_FORM_LBL_STAFF_EMAIL_DOMAIN"
+                    description="COM_KEYMANAGER_FORM_DESC_STAFF_EMAIL_DOMAIN"
+                    menu_published="0"
+                    filter="raw" />
+
+                    <field name="admin_email" type="text"
+
+                    label="COM_KEYMANAGER_FORM_LBL_ADMIN_EMAIL"
+                    description="COM_KEYMANAGER_FORM_DESC_ADMIN_EMAIL"
+                    menu_published="0"
+                    filter="raw" />
+
+                    <field name="from_name" type="text"
+
+                    label="COM_KEYMANAGER_FORM_LBL_FROM_NAME"
+                    description="COM_KEYMANAGER_FORM_DESC_FROM_NAME"
+                    menu_published="0"
+                    filter="raw" />
+
+                    <field name="admin_email_2" type="text"
+
+                    label="COM_KEYMANAGER_FORM_LBL_ADMIN_EMAIL_2"
+                    description="COM_KEYMANAGER_FORM_DESC_ADMIN_EMAIL_2"
+                    menu_published="0"
+                    filter="raw" />
+
+
+
+
     </fieldset>
-    <fieldset 
+    <fieldset
         name="permissions"
 	description="JCONFIG_PERMISSIONS_DESC"
 	label="JCONFIG_PERMISSIONS_LABEL">
 
-		<field 
+		<field
                     name="rules" type="rules" component="com_keymanager"
                     class="inputbox" filter="rules" validate="rules"
                     label="JCONFIG_PERMISSIONS_LABEL"

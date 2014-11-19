@@ -89,8 +89,8 @@ $document->addStyleSheet('components/com_keymanager/assets/css/keymanager.css');
 				endforeach; ?>
 
             <div class="control-group">
-                <div class="control-label"><?php echo $this->form->getLabel('room_id'); ?></div>
-                <div class="controls"><?php echo $this->form->getInput('room_id'); ?></div>
+                <div class="control-label"><?php echo $this->form->getLabel('rooms'); ?></div>
+                <div class="controls"><?php echo $this->form->getInput('rooms'); ?></div>
             </div>
                 <input type="hidden" name="jform[ordering]" value="<?php echo $this->item->ordering; ?>" />
 			<div class="control-group">

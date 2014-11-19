@@ -22,7 +22,28 @@
 
 
 
-                                                    filter="safehtml" />
+            filter="safehtml" />
+
+       <field name="keys" type="sql" class="inputbox"
+            label="COM_KEYMANAGER_FORM_LBL_REQUESTKEY_KEY_ID"
+            description="COM_KEYMANAGER_FORM_DESC_REQUESTKEY_KEY_ID" input_type="list" multiple="true"
+            query="SELECT 0 AS `id`, '- Cabinet / Hook / Key -' AS `val` UNION SELECT `k`.`id`, CONCAT(c.cabinet_name,' / ',h.hook_number,' / ',k.key_name) AS val FROM `#__keymanager_keys` AS k
+            INNER JOIN `sd13g_keymanager_hooks` AS h ON k.hook_id = h.id
+            INNER JOIN `sd13g_keymanager_cabinets` AS c ON h.cabinet_id = c.id" key_field="id" value_field="val"  required="true"  />
+
+        <field name="filter_key_id" type="sql" class="inputbox"
+            onchange="this.form.submit();"
+            query="SELECT 0 AS `id`, '- Cabinet-Hook-Key -' AS `val` UNION SELECT `id`, `key_name` AS val FROM `#__keymanager_keys`" key_field="id" value_field="val"
+            />
+
+        <field name="access_card" type="text" size="40" class="inputbox"
+
+            label="COM_KEYMANAGER_FORM_LBL_REQUEST_ACCESS_CARD"
+            description="COM_KEYMANAGER_FORM_DESC_REQUEST_ACCESS_CARD"
+
+
+
+            filter="safehtml" />
 
  <field name="building_id" type="foreignkey" class="inputbox"
             label="COM_KEYMANAGER_FORM_LBL_ROOM_BUILDING_ID"
