@@ -74,9 +74,12 @@ class KeymanagerControllerRequests extends JControllerAdmin
                 // Get the model
                 $model = $this->getModel();
 
+
                 $return = $model->startrequest($pks);
 
                 $mail = $model->departmentheadKeyRequestEmail($pks);
+
+
 
                 if($mail == true) {
                     $msg = 'Email sent successfully!';

@@ -177,7 +177,7 @@ class KeymanagerModelRequests extends JModelList {
         if ($orderCol && $orderDirn) {
             $query->order($db->escape($orderCol . ' ' . $orderDirn));
         }
-        // Code to Join and Retrieve the Multiple Keys Associated with a Request:
+        // Join and Retrieve the Multiple Keys Associated with a Request:
         $query->select("GROUP_CONCAT(DISTINCT k.key_name ORDER BY k.key_name ASC SEPARATOR ', ') AS key_name");
         $query->join('LEFT', '#__keymanager_request_keys AS rk ON a.id = rk.request_id');
         $query->join('LEFT', '#__keymanager_keys AS k ON rk.key_id = k.id');

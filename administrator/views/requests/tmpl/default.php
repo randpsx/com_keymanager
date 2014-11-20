@@ -277,10 +277,16 @@ if (!empty($this->extra_sidebar)) {
 
 					<?php echo $item->created_date; ?>
 				</td>
-				<td>
 
-					<?php echo $item->can_pickup; ?>
-				</td>
+
+				<td>
+                    <?php if($item->can_pickup == 0): ?>
+                        <?php echo 'No'; ?>
+                    <?php else : ?>
+                        <?php echo 'Yes'; ?>
+                    <?php endif; ?>
+                </td>
+
 
 
 
